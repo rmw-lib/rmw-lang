@@ -124,15 +124,6 @@ _词法 = (行迭代)->
   yield 封()
   return
 
-
-
-    ###
-    行长 = 行.length
-    无缩进行 = 行.trimSta封()
-    无缩进行长 = 无缩进行.length
-    缩进长 = 行长 - 无缩进行长
-    yield 行+'\n'
-    ###
 export default (行迭代)->
   for await i from _词法(行迭代)
     if i
