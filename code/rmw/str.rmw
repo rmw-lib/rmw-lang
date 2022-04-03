@@ -66,3 +66,5 @@ console.log ..li
 b //= 3
 
 a.replace(/\d+/ig,'11')
+
+a / b(x) / c

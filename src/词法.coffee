@@ -131,7 +131,7 @@ _词法 = (行迭代)->
               pos = 行.indexOf('/',列)+1
               if pos
                 while pos < 行长
-                  if 'ig '.indexOf(行[pos]) < 0
+                  if '.ig '.indexOf(行[pos]) < 0
                     break
                   ++pos
 
