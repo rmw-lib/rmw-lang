@@ -62,3 +62,5 @@ x => console.log   1 , 2
 
 li = [1,2,3]
 console.log ..li
+
+b //= 3

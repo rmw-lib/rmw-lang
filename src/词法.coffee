@@ -20,7 +20,7 @@ export 非代码态 = new Set 文态 + '#'
 }
 
 操作符 = '(){}[],@~:!?;'
-符号 = new Set 操作符+'.=&|#'
+符号 = new Set 操作符+Object.keys(多字节符号).join('')
 操作符 = new Set 操作符
 
 _词法 = (行迭代)->
