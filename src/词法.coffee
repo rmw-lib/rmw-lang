@@ -122,9 +122,30 @@ _词法 = (行迭代)->
           if ~有次.indexOf 次
             暂.unshift 次
             ++ 列
-            if 字 == '/' and 次 == 字 and 行[列] == '='
-              暂.unshift '='
-              ++ 列
+          if 字 == '/'
+            if 次 == 字
+              if 行[列] == '='
+                暂.unshift '='
+                ++ 列
+            else
+              pos = 行.indexOf('/',列)+1
+              if pos
+                while pos < 行长
+                  if 'ig '.indexOf(行[pos]) < 0
+                    break
+                  ++pos
+
+                正则 = false
+
+                if pos == 行长
+                  正则 = true
+                else if ~ ',)'.indexOf 行[pos]
+                  正则 = true
+
+                if 正则
+                  暂.unshift 行[列...pos]
+                  列 = pos
+
           yield 封()
         else if 操作符.has(字)
           yield 封()
