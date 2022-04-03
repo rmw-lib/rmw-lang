@@ -122,7 +122,7 @@ _词法 = (行迭代)->
           if ~有次.indexOf 次
             暂.unshift 次
             ++ 列
-            if 字 == '/' and 次 == '/' and 行[列] == '='
+            if 字 == '/' and 次 == 字 and 行[列] == '='
               暂.unshift '='
               ++ 列
           yield 封()
