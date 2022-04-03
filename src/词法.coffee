@@ -1,6 +1,6 @@
 #!/usr/bin/env coffee
 
-文态 = '\'"/`'
+文态 = '\'"`'
 export 非代码态 = new Set 文态 + '#'
 文态 = new Set 文态
 
@@ -118,11 +118,13 @@ _词法 = (行迭代)->
         if 有次
           yield 封()
           次 = 行[列]
+          暂.unshift 字
           if ~有次.indexOf 次
-            暂.unshift 字+次
+            暂.unshift 次
             ++ 列
-          else
-            暂.unshift 字
+            if 字 == '/' and 次 == '/' and 行[列] == '='
+              暂.unshift '='
+              ++ 列
           yield 封()
         else if 操作符.has(字)
           yield 封()
