@@ -21,7 +21,7 @@ export 非代码态 = new Set 文态 + '#'
 
 三字符 = '/*<>'
 
-next = (str, sub, begin)=>
+下一个非转义字符 = (str, sub, begin)=>
   n = begin
   len = str.length
   while n < len
@@ -171,7 +171,7 @@ _词法 = (行迭代)->
               else
                 begin = 列
 
-                pos = next(行,'/',begin)+1
+                pos = 下一个非转义字符(行,'/',begin)+1
                 if pos
                   while pos < 行长
                     if '. igm'.indexOf(行[pos]) < 0
