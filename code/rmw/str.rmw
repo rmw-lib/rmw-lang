@@ -72,4 +72,4 @@ a / b(x) / c
 
 
 $log $do =>
-  func ++ i
+  func ++ i  
