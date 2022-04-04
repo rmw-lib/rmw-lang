@@ -19,6 +19,19 @@ export 非代码态 = new Set 文态 + '#'
   '<':'='
 }
 
+next = (str, sub, begin)=>
+  n = begin
+  len = str.length
+  while n < len
+    switch str[n]
+      when '\\'
+        n+=2
+      when '/'
+        return n
+      else
+        ++n
+  -1
+
 非调用 = new Set Object.keys(多字节符号).concat [
   ','
 ]
@@ -142,7 +155,7 @@ _词法 = (行迭代)->
             else
               begin = 列
 
-              pos = 行.indexOf('/',begin)+1
+              pos = next(行,'/',begin)+1
               if pos
                 while pos < 行长
                   if '. igm'.indexOf(行[pos]) < 0
