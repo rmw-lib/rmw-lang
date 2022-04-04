@@ -72,6 +72,6 @@ $log $do =>
 a / b(x) / c
 x => console.log   1 , 2
 x = (a,b,c=1) ->
-  < a+b+c
+  < a+b+c      
   #|
     注释

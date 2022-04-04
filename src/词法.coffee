@@ -96,20 +96,8 @@ _词法 = (行迭代)->
       else
         列 = 0
     else
-      列始 = 1
-      列 = 0
-      字 = 暂?[0]
-      if 字 == '\\'
-        暂.shift()
-      else if 字 == ' '
-        暂 = []
-      else
-        yield 封()
-        暂.unshift '\n'
-        yield 封()
-        列 = 行长 - 行.trimStart().length
-        列始 = 列+1
-
+      列 = 行长 - 行.trimStart().length
+      列始 = 列+1
 
     while 列 < 行长
       字 = 行[列++]
@@ -201,6 +189,40 @@ _词法 = (行迭代)->
           yield 封()
         else
           暂.unshift 字
+
+    字 = 暂[0]
+    if 字 == '\\'
+      pos = 0
+      n = 0
+      loop
+        if 暂[++pos] == '\\'
+          ++n
+        else
+          break
+      if n%2
+        if not 态
+          yield 封()
+      else
+        暂.shift()
+    else if not 态
+      if 字 == ' '
+        暂 = []
+      yield 封()
+      列始 = 行长
+      暂.unshift '\n'
+      yield 封()
+
+
+    ###
+      else
+        console.log ">>>>",[字,暂]
+        if 字 == ' '
+          暂 = []
+        --行号
+        ++行号
+        yield 封()
+      暂 = []
+    ###
   yield 封()
   return
 
@@ -209,8 +231,6 @@ export default (行迭代)->
   行数组 = []
   前行 = 1
   封 = =>
-    if 行数组[0][1] == ' '
-      行数组.shift()
     结果 = [前行]
     行数组.reverse()
     for i,pos in 行数组
