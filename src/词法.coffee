@@ -95,7 +95,7 @@ _词法 = (行迭代)->
       else if 字 == ' '
         yield 封()
         次 = 行[列]
-        if 次 == ' '
+        if 次 == ' ' or 次==',' or 前.charAt(0) == ','
           continue
         else
           暂.unshift 字
