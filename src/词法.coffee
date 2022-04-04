@@ -19,7 +19,7 @@ export 非代码态 = new Set 文态 + '#'
   '<':'=<'
 }
 
-三字符 = '/*<>'
+三字符 = '*<>'
 
 下一个非转义字符 = (str, sub, begin)=>
   n = begin
@@ -45,7 +45,7 @@ do =>
     for i from v
       非调用前缀.add k+i
 
-  for i from 三字符
+  for i from '/'+三字符
     非调用前缀.add(i+i+'=')
   return
 
@@ -188,7 +188,7 @@ _词法 = (行迭代)->
                   if 正则
                     暂.unshift 行[列...pos]
                     列 = pos
-            when 三字符.indexOf(字)
+            when ~ 三字符.indexOf(字)
               if 次 == 字
                 if 行[列] == '='
                   暂.unshift '='
