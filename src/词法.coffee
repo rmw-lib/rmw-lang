@@ -77,6 +77,8 @@ _词法 = (行迭代)->
         暂 = []
       else
         yield 封()
+        暂.unshift '\n'
+        yield 封()
         列 = 行长 - 行.trimStart().length
         列始 = 列+1
 
@@ -138,7 +140,9 @@ _词法 = (行迭代)->
                 暂.unshift '='
                 ++ 列
             else
-              pos = 行.indexOf('/',列)+1
+              begin = 列
+
+              pos = 行.indexOf('/',begin)+1
               if pos
                 while pos < 行长
                   if '. igm'.indexOf(行[pos]) < 0
@@ -163,7 +167,6 @@ _词法 = (行迭代)->
           yield 封()
         else
           暂.unshift 字
-
   yield 封()
   return
 

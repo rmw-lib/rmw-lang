@@ -18,11 +18,6 @@ export default main = (行迭代)->
     console.log 块
     [行,列,词] = 块
     if 行!=前行
-      层.push [
-        行
-        0
-        '\n'
-      ]
       前行 = 行
     if ~ '({['.indexOf 词
       层.push 块
