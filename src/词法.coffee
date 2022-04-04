@@ -54,14 +54,7 @@ do =>
 )
 
 do =>
-  for i from [
-    '=>'
-    '->'
-    '=<'
-    '-<'
-    '++'
-    '--'
-  ]
+  for i from '=> -> =< -< -- ++'.split(' ')
     非调用后.delete i
   return
 
