@@ -19,11 +19,14 @@ export 非代码态 = new Set 文态 + '#'
   '<':'='
 }
 
-非调用 = new Set Object.keys(多字节符号).concat [
+非调用 = Object.keys(多字节符号).concat [
   ','
+]
+非调用前 = new Set 非调用.concat [
   '->'
   '=>'
 ]
+非调用 = new Set 非调用
 操作符 = '(){}[],@~:!?;'
 操作符 = new Set 操作符
 
@@ -100,7 +103,7 @@ _词法 = (行迭代)->
       else if 字 == ' '
         yield 封()
         次 = 行[列]
-        if 次 == ' ' or 非调用.has(次) or 非调用.has(前)
+        if 次 == ' ' or 非调用.has(次) or 非调用前.has(前)
           continue
         else
           暂.unshift 字
