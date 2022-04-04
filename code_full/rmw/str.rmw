@@ -1,0 +1,76 @@
+a = '1 2 3 \' 4 " 5' + 6
+
+x0 = '1
+2
+3\''
+
+j = '1 2 \\'
+
+    # test
+
+  #|
+    # 测试
+
+b1 = "
+- a
+- b
+- c
+- d
+"
+
+$log $do =>
+  c = "
+    x
+    y
+    z
+  "
+
+  d = '
+  😁
+  '
+  c = c + d # test
+
+  re = /\d+/
+
+  e = `\n {a}`
+  z = `\n
+    {a}
+  `
+  < a + b + c + e
+
+func(
+  -> < b = a + 1
+)
+
+func(
+  =>
+    < b = a + 1
+)
+
+
+x = (a,b,c=(t=3)=>t+1) =>
+  < a+b+c
+
+
+x.x = 1
+
+
+
+li = [1,2,3]
+console.log ..li
+
+b //= 3
+
+a.replace(/\d+/ig,'11')
+
+$log $do =>
+  func ++ i
+
+a / b(x) / c
+x => console.log   1 , 2
+xyz = (a,b,c=1) ->
+  < a+b+c
+  #|
+    注释
+
+[1,2,3].map    (x)=> < ++x
