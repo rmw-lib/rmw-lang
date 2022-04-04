@@ -16,7 +16,6 @@ export default main = (行迭代)->
 
   for await [行,...li] from 词法 行迭代
     缩进 = li[0][1]
-    console.log {行,缩进,li}
     for 块 from li
       [列,词] = 块
       块 = [行].concat 块

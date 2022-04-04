@@ -81,8 +81,6 @@ _词法 = (行迭代)->
     ++行号
 
     行长 = 行.length
-
-
     if 态
       暂.unshift '\n'
       if 态[0] == '#|'
@@ -98,6 +96,7 @@ _词法 = (行迭代)->
     else
       列 = 行长 - 行.trimStart().length
       列始 = 列+1
+      行始 = 行号
 
     while 列 < 行长
       字 = 行[列++]
@@ -212,10 +211,6 @@ _词法 = (行迭代)->
         暂.shift()
     else if not 态
       yield 封()
-      列始 = 行长+1
-      暂.unshift '\n'
-      yield 封()
-      行始 = 行+1
 
   yield 封()
   return
