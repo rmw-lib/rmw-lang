@@ -47,8 +47,6 @@ func(
     < b = a + 1
 )
 
-x = (a,b,c=1) ->
-  < a+b+c
 
 x = (a,b,c=(t=3)=>t+1) =>
   < a+b+c
@@ -73,3 +71,5 @@ $log $do =>
 
 a / b(x) / c
 x => console.log   1 , 2
+x = (a,b,c=1) ->
+  < a+b+c
