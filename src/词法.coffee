@@ -88,7 +88,7 @@ _词法 = (行迭代)->
       if 态[0] == '#|'
         缩进 = 行长 - 行.trimStart().length
         if 缩进 > 态[1]
-          暂.unshift '\n'
+          暂.unshift 行
           continue
         else
           yield 封()
