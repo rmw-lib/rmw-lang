@@ -4,7 +4,7 @@
 export 非代码态 = new Set 文态 + '#'
 文态 = new Set 文态
 
-多字节符号 = {
+双字符 = {
   '=':'>=<'
   '!':'='
   '&':'=&'
@@ -19,6 +19,8 @@ export 非代码态 = new Set 文态 + '#'
   '<':'=<'
 }
 
+三字符 = '/*<>'
+
 next = (str, sub, begin)=>
   n = begin
   len = str.length
@@ -32,17 +34,22 @@ next = (str, sub, begin)=>
         ++n
   -1
 
-非调用 = new Set Object.keys(多字节符号).concat [
+export 非调用前 = new Set [
+  '..'
   ','
 ]
-非调用.delete '-'
-非调用.delete '='
-export 非调用前 = new Set [
-  '->'
-  '=>'
-  '..'
-  ...非调用
-]
+
+do =>
+  for [k,v] from Object.entries 双字符
+    非调用前.add k
+    for i from v
+      非调用前.add k+i
+
+  for i from 三字符
+    非调用前.add(i+i+'=')
+  console.log 非调用前
+  return
+
 操作符 = '(){}[],@~:!?;'
 操作符 = new Set 操作符
 
@@ -121,7 +128,7 @@ _词法 = (行迭代)->
       else if 字 == ' '
         yield 封()
         次 = 行[列]
-        if 次 == ' ' or 非调用.has(次) or 非调用前.has(前)
+        if 次 == ' ' or 非调用前.has(前)
           continue
         else
           暂.unshift 字
@@ -139,7 +146,7 @@ _词法 = (行迭代)->
             yield 封()
             continue
 
-        有次 = 多字节符号[字]
+        有次 = 双字符[字]
         if 有次
           yield 封()
           次 = 行[列]
@@ -148,11 +155,6 @@ _词法 = (行迭代)->
             暂.unshift 次
             ++ 列
           switch 字
-            when '<','>'
-              if 次 == 字
-                if 行[列] == '='
-                  暂.unshift '='
-                  ++ 列
             when '/'
               if 次 == 字
                 if 行[列] == '='
@@ -178,6 +180,11 @@ _词法 = (行迭代)->
                   if 正则
                     暂.unshift 行[列...pos]
                     列 = pos
+            when 三字符.indexOf(字)
+              if 次 == 字
+                if 行[列] == '='
+                  暂.unshift '='
+                  ++ 列
 
           yield 封()
         else if 操作符.has(字)
@@ -190,7 +197,8 @@ _词法 = (行迭代)->
   return
 
 export default (行迭代)->
-  for await i from _词法(行迭代)
-    if i
-      yield i
+  for await 块 from _词法(行迭代)
+    if 块
+      [行,列,词] = 块
+      yield 块
   return

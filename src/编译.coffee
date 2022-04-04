@@ -6,7 +6,8 @@ import 句法 from './句法.coffee'
   for i from 层.li
     if Array.isArray i
       [行,列,词] = i
-      yield JSON.stringify([行,列,词])[1...-1].replaceAll('\\\\','\\')+'\n'
+      #yield JSON.stringify([行,列,词])[1...-1].replaceAll('\\\\','\\')+'\n'
+      yield 词
     else
       yield from 编译(i)
   return
