@@ -226,7 +226,7 @@ export default (行迭代)->
       if i[1]==' '
         if 非调用后缀.has(行数组[pos+1]?[1])
           continue
-        else if (行数组[pos-1]?[1] == ')') and ['=>','->'].indexOf(行数组[pos+1]?[1])
+        else if (行数组[pos-1]?[1] == ')') and ~['=>','->'].indexOf(行数组[pos+1]?[1])
           continue
       结果.push i
     结果
