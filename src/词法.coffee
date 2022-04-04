@@ -34,28 +34,28 @@ next = (str, sub, begin)=>
         ++n
   -1
 
-export 非调用前 = new Set [
+export 非调用前缀 = new Set [
   '..'
   ','
 ]
 
 do =>
   for [k,v] from Object.entries 双字符
-    非调用前.add k
+    非调用前缀.add k
     for i from v
-      非调用前.add k+i
+      非调用前缀.add k+i
 
   for i from 三字符
-    非调用前.add(i+i+'=')
+    非调用前缀.add(i+i+'=')
   return
 
-非调用后 = new Set(
-  ...非调用前
+非调用后缀 = new Set(
+  ...Object.keys(非调用前缀)
 )
 
 do =>
   for i from '=> -> =< -< -- ++'.split(' ')
-    非调用后.delete i
+    非调用后缀.delete i
   return
 
 操作符 = '(){}[],@~:!?;'
@@ -136,7 +136,7 @@ _词法 = (行迭代)->
       else if 字 == ' '
         yield 封()
         次 = 行[列]
-        if 次 == ' ' or 非调用前.has(前)
+        if 次 == ' ' or 非调用前缀.has(前)
           continue
         else
           暂.unshift 字
@@ -206,12 +206,18 @@ _词法 = (行迭代)->
 
 export default (行迭代)->
 
-  行数组 = [1]
+  行数组 = []
   前行 = 1
   封 = =>
     if 行数组[0][1] == ' '
       行数组.shift()
+    结果 = [前行]
     行数组.reverse()
+    for i,pos in 行数组
+      if i[1]==' ' and 非调用后缀.has(行数组[pos+1]?[1])
+        continue
+      结果.push i
+    结果
 
   for await 块 from _词法(行迭代)
     if 块
@@ -220,7 +226,7 @@ export default (行迭代)->
         if 行数组.length > 1
           yield 封()
         前行 = 行
-        行数组 = [行]
+        行数组 = []
       行数组.unshift [列,词]
   if 行数组.length > 1
     yield 封()
