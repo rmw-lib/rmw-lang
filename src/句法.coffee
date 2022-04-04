@@ -15,6 +15,7 @@ export default main = (行迭代)->
   前行 = 1
   列 = 0
   for await 块 from 词法 行迭代
+    console.log 块
     [行,列,词] = 块
     if 行!=前行
       层.push [

@@ -20,7 +20,6 @@ export 非代码态 = new Set 文态 + '#'
 }
 
 操作符 = '(){}[],@~:!?;'
-符号 = new Set 操作符+Object.keys(多字节符号).join('')
 操作符 = new Set 操作符
 
 _词法 = (行迭代)->
@@ -96,7 +95,7 @@ _词法 = (行迭代)->
       else if 字 == ' '
         yield 封()
         次 = 行[列]
-        if 次 == ' ' or 符号.has(次) or 符号.has(前.charAt(0))
+        if 次 == ' '
           continue
         else
           暂.unshift 字
