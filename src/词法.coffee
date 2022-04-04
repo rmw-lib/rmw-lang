@@ -15,8 +15,8 @@ export 非代码态 = new Set 文态 + '#'
   '*':'=*'
   '%':'='
   '^':'='
-  '>':'='
-  '<':'='
+  '>':'=>'
+  '<':'=<'
 }
 
 next = (str, sub, begin)=>
@@ -147,31 +147,37 @@ _词法 = (行迭代)->
           if ~有次.indexOf 次
             暂.unshift 次
             ++ 列
-          if 字 == '/'
-            if 次 == 字
-              if 行[列] == '='
-                暂.unshift '='
-                ++ 列
-            else
-              begin = 列
+          switch 字
+            when '<','>'
+              if 次 == 字
+                if 行[列] == '='
+                  暂.unshift '='
+                  ++ 列
+            when '/'
+              if 次 == 字
+                if 行[列] == '='
+                  暂.unshift '='
+                  ++ 列
+              else
+                begin = 列
 
-              pos = next(行,'/',begin)+1
-              if pos
-                while pos < 行长
-                  if '. igm'.indexOf(行[pos]) < 0
-                    break
-                  ++pos
+                pos = next(行,'/',begin)+1
+                if pos
+                  while pos < 行长
+                    if '. igm'.indexOf(行[pos]) < 0
+                      break
+                    ++pos
 
-                正则 = false
+                  正则 = false
 
-                if pos == 行长
-                  正则 = true
-                else if ~ ',)'.indexOf 行[pos]
-                  正则 = true
+                  if pos == 行长
+                    正则 = true
+                  else if ~ ',)'.indexOf 行[pos]
+                    正则 = true
 
-                if 正则
-                  暂.unshift 行[列...pos]
-                  列 = pos
+                  if 正则
+                    暂.unshift 行[列...pos]
+                    列 = pos
 
           yield 封()
         else if 操作符.has(字)
