@@ -2,22 +2,33 @@
 
 import 词法 from './词法.coffee'
 
-class 层
+class _层
   constructor:(@父)->
-    @前 = []
-    @子 = []
-    @后 = []
+    @li = []
 
-  子:->
-    t = new 层 @
-    @子.push t
-    t
+  push:(i)->
+    @li.push i
+    i
 
 export default main = (行迭代)->
+  层 = new _层()
   前行 = 1
-  for await [行,列,词] from 词法 行迭代
+  列 = 0
+  for await 块 from 词法 行迭代
+    [行,列,词] = 块
     if 行!=前行
+      层.push [
+        行
+        0
+        '\n'
+      ]
       前行 = 行
-      yield '\n'
-    yield 行+'\t'+列+'\t'+JSON.stringify(词)[1...-1]+'\n'
-  return
+    if ~ '({['.indexOf 词
+      层.push 块
+      层 = 层.push new _层(层)
+      continue
+    if ~ ')}]'.indexOf 词
+      层 = 层.父
+    层.push 块
+    #yield 行+'\t'+列+'\t'+JSON.stringify(词)[1...-1]+'\n'
+  层
