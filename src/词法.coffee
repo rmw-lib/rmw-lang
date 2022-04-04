@@ -24,7 +24,7 @@ export 非代码态 = new Set 文态 + '#'
 ]
 非调用.delete '-'
 非调用.delete '='
-非调用前 = new Set [
+export 非调用前 = new Set [
   '->'
   '=>'
   '..'
