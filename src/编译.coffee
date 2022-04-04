@@ -3,7 +3,7 @@
 import 句法 from './句法.coffee'
 
 编译 = (层,前行=1)->
-  for i from 层.li.reverse()
+  for i from 层.li
     if Array.isArray i
       [行,列,词] = i
       if 行!=前行
