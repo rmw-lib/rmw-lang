@@ -7,7 +7,7 @@ class _层
     @li = []
 
   push:(i)->
-    @li.push i
+    @li.unshift i
     i
 
 export default main = (行迭代)->
