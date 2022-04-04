@@ -205,17 +205,23 @@ _词法 = (行迭代)->
   return
 
 export default (行迭代)->
+
   行数组 = [1]
   前行 = 1
+  封 = =>
+    if 行数组[0] == ' '
+      行数组.shift()
+    行数组.reverse()
+
   for await 块 from _词法(行迭代)
     if 块
       [行,列,词] = 块
       if 行!=前行
         if 行数组.length > 1
-          yield 行数组
+          yield 封()
         前行 = 行
         行数组 = [行]
-      行数组.push [列,词]
+      行数组.unshift [列,词]
   if 行数组.length > 1
-    yield 行数组
+    yield 封()
   return
