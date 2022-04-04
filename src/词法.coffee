@@ -123,8 +123,13 @@ _词法 = (行迭代)->
           列 = 行长
       else if 字 == ' '
         yield 封()
-        次 = 行[列]
-        if 次 == ' ' or 非调用前缀.has(前)
+        while 列 < 行长
+          次 = 行[列]
+          if 次 == ' '
+            ++列
+          else
+            break
+        if 非调用前缀.has(前) or 列 == 行长
           continue
         else
           暂.unshift 字
@@ -202,27 +207,16 @@ _词法 = (行迭代)->
       if n%2
         if not 态
           yield 封()
+          行始 = 行+1
       else
         暂.shift()
     else if not 态
-      if 字 == ' '
-        暂 = []
       yield 封()
-      列始 = 行长
+      列始 = 行长+1
       暂.unshift '\n'
       yield 封()
+      行始 = 行+1
 
-
-    ###
-      else
-        console.log ">>>>",[字,暂]
-        if 字 == ' '
-          暂 = []
-        --行号
-        ++行号
-        yield 封()
-      暂 = []
-    ###
   yield 封()
   return
 
@@ -251,6 +245,6 @@ export default (行迭代)->
         前行 = 行
         行数组 = []
       行数组.unshift [列,词]
-  if 行数组.length > 1
+  if 行数组.length > 0
     yield 封()
   return
