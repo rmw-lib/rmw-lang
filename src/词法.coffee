@@ -205,8 +205,17 @@ _词法 = (行迭代)->
   return
 
 export default (行迭代)->
+  行数组 = [1]
+  前行 = 1
   for await 块 from _词法(行迭代)
     if 块
       [行,列,词] = 块
-      yield 块
+      if 行!=前行
+        if 行数组.length > 1
+          yield 行数组
+        前行 = 行
+        行数组 = [行]
+      行数组.push [列,词]
+  if 行数组.length > 1
+    yield 行数组
   return
