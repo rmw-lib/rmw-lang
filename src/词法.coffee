@@ -240,7 +240,7 @@ export default (行迭代)->
     if 块
       [行,列,词] = 块
       if 行!=前行
-        if 行数组.length > 1
+        if 行数组.length > 0
           yield 封()
         前行 = 行
         行数组 = []
