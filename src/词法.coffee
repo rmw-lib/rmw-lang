@@ -19,15 +19,17 @@ export 非代码态 = new Set 文态 + '#'
   '<':'='
 }
 
-非调用 = Object.keys(多字节符号).concat [
+非调用 = new Set Object.keys(多字节符号).concat [
   ','
 ]
-非调用前 = new Set 非调用.concat [
+非调用.delete '-'
+非调用.delete '='
+非调用前 = new Set [
   '->'
   '=>'
   '..'
+  ...非调用
 ]
-非调用 = new Set 非调用
 操作符 = '(){}[],@~:!?;'
 操作符 = new Set 操作符
 
