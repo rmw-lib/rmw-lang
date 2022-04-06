@@ -1,18 +1,17 @@
 #!/usr/bin/env coffee
 
-import 句法,{层} from './句法.coffee'
+import 句法 from './句法.coffee'
 
 编译 = (块)->
   前行 = 1
   run = (块)->
-    [行号,...行] = 块.li
-    for i from 行
+    for [行号,...行] from 块
       if 行号>前行
-        yield '\n'
+        yield '\n'+''.padEnd(
+          行[0][0] - 1
+        )
         前行 = 行号
-      if i instanceof 层
-        yield from run 块
-      else
+      for i from 行
         [列,词] = i
         yield 词
   return run(块)

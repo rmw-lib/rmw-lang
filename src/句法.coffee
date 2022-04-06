@@ -13,10 +13,11 @@ import 词法 from './词法.coffee'
 ]
 
 export default main = (行迭代)->
+  li = []
   for await line from 词法 行迭代
-    yield line
-      ###
     [行号,...词组] = line
+    li.push line
+      ###
     if not li.length
       li.push 行号
       if 没有括号 没有缩进
@@ -28,4 +29,4 @@ export default main = (行迭代)->
         continue
       块.push i
       ###
-  return
+  return li
