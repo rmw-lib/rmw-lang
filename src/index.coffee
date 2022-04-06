@@ -18,6 +18,6 @@ if process.argv[1] == decodeURI (new URL(import.meta.url)).pathname
     if not 路径.endsWith '.rmw'
       continue
     console.log chalk.yellow('\n→'+路径)
-    for i from await 编译 fsline join(RMW,路径)
+    for await i from 编译 fsline join(RMW,路径)
       process.stdout.write i
   process.exit()
