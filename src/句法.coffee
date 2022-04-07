@@ -64,7 +64,10 @@ export default main = (行迭代)->
             else
               break
           layer = t or 根
-        layer.line 行号
+        try
+          layer.line 行号
+        catch err
+          throw new Error "行 #{行号} : "+词组.map((x)=>x[1]).join('')
 
     有函数 = 0
 
@@ -80,7 +83,7 @@ export default main = (行迭代)->
             if col == 列
               word = redBright(word)
             t.push word
-          throw new Error "行 #{行号} 列 #{列} "+t.join('')
+          throw new Error "行 #{行号} 列 #{列} : "+t.join('')
         return
 
       if not 词.startsWith '#'
@@ -88,6 +91,7 @@ export default main = (行迭代)->
 
       if ~ ['->','=>'].indexOf(词)
         括号栈.unshift [0,0,0]
+        layer = layer.sub(行号)
         ++有函数
       else
         pos = '([{'.indexOf 词
@@ -97,13 +101,23 @@ export default main = (行迭代)->
         else
           pos = ')]}'.indexOf 词
           if pos >= 0
-            括号栈[0][pos]-=1
+            n = 0
+            loop
+              if (括号栈[0][pos]-=1) < 0
+                括号栈.shift()
+                layer = layer.父
+                --有函数
+              else
+                break
             push()
             layer = layer.父
             continue
-      if 有函数
+      if 有函数 > 0
         if ['->','=>'].indexOf(结尾)<0 and not sum(括号栈[0])
           括号栈 = 括号栈[有函数..]
+          while 有函数--
+            layer = layer.父
+
       push()
 
     前缩进 = 缩进
