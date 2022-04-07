@@ -47,6 +47,13 @@ export default main = (行迭代)->
     缩进 = 词组[0][0]
     loop
       if 0 == sum(括号栈[0])
+        li1 = layer.li[layer.li.length-1]?[1]
+        if li1 and ~ '-='.indexOf li1[1]
+          t = li1[0]
+          if 缩进 <= t
+            layer = layer.父
+            前缩进 = t
+
         if 缩进 > 前缩进
           if 缩进前缀.has 结尾
             缩进块.push 缩进
@@ -62,8 +69,6 @@ export default main = (行迭代)->
               layer = layer.父
             else
               break
-        else if ~ '-='.indexOf layer.li[0]?[layer.li.length-1]
-          layer = layer.父
 
       try
         layer.line 行号
@@ -88,9 +93,9 @@ export default main = (行迭代)->
           throw new Error "行 #{行号} 列 #{列} : "+t.join('')
         return
 
-      if 位 == 0 and not sum(括号栈)
+      if 位 == 0 and  0 == sum(括号栈[0])
         if ~ '-='.indexOf 词
-          layer = layer.sub 行
+          layer = layer.sub 行号
 
       if not 词.startsWith '#'
         结尾 = 词
