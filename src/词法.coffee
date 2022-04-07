@@ -35,6 +35,9 @@ export 非代码态 = new Set 文态 + '#'
   -1
 
 export 非调用前缀 = new Set [
+  '('
+  '['
+  '{'
   '..'
   ','
 ]
@@ -54,6 +57,8 @@ do =>
 )
 
 do =>
+  for i from ')]}'
+    非调用后缀.add i
   for i from '=> -> =< -< -- ++'.split(' ')
     非调用后缀.delete i
   return
