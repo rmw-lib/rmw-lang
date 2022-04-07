@@ -15,8 +15,16 @@ import 句法,{层} from './句法.coffee'
 
     li = 层.li.reverse()
 
+    len = li.length - 1
+    态 = 0
     for [行号,...行],pos in li
-      态 = 0
+      ended = ->
+        if 态 == 变量声明
+          if len == pos
+            yield ';'
+          else if not (pos==0 and 行.length==1)
+            yield ','
+
       for i from 行
 
         if Array.isArray i
@@ -32,16 +40,16 @@ import 句法,{层} from './句法.coffee'
                     '=':'let '
                   }[词]
                   态 = 变量声明
-
             if 前行
-              yield '\n'.padEnd(
-                行[0][0] - 1
-              )
-
+              if not ( 态 == 变量声明 and li[0].length == 2 and pos == 1)
+                yield '\n'+''.padEnd(
+                  行[0][0] - 1
+                )
             前行 = 行号
 
-
-          if 词.startsWith '#'
+          注释 = 词.startsWith '#'
+          if 注释
+            yield from ended()
             if 词.charAt(1) == '|'
               yield '/*'+词[2..]+'*/'
             else
@@ -55,6 +63,8 @@ import 句法,{层} from './句法.coffee'
                 yield 词
         else
           yield from run i
+      if not 注释
+        yield from ended()
 
       if n
         yield 右括号()
