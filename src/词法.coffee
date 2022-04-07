@@ -59,7 +59,7 @@ do =>
 do =>
   for i from ')]}'
     非调用后缀.add i
-  for i from '=> -> =< -< -- ++'.split(' ')
+  for i from '( [ { => -> =< -< -- ++'.split(' ')
     非调用后缀.delete i
   return
 
