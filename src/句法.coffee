@@ -45,27 +45,30 @@ export default main = (行迭代)->
   for await line from 词法 行迭代
     [行号,...词组] = line
     缩进 = 词组[0][0]
-    if 0 == sum(括号栈[0])
-      if 缩进 > 前缩进
-        if 缩进前缀.has 结尾
-          缩进块.push 缩进
-          括号栈_push()
-          layer = layer.sub 行号
-      else
-        if 缩进 < 前缩进
-          loop
-            t = 缩进块[0]
-            if t and t>=缩进
-              缩进块.shift()
-              括号栈.shift()
-              layer = layer.父
-            else
-              break
+    loop
+      if 0 == sum(括号栈[0])
+        if 缩进 > 前缩进
+          if 缩进前缀.has 结尾
+            缩进块.push 缩进
+            括号栈_push()
+            layer = layer.sub 行号
+            break
+        else
+          if 缩进 < 前缩进
+            loop
+              t = 缩进块[0]
+              if t and t>=缩进
+                缩进块.shift()
+                括号栈.shift()
+                layer = layer.父
+              else
+                break
 
-        try
-          layer.line 行号
-        catch err
-          throw new Error "行 #{行号} : "+词组.map((x)=>x[1]).join('')
+      try
+        layer.line 行号
+      catch err
+        throw new Error "行 #{行号} : "+词组.map((x)=>x[1]).join('')
+      break
 
     函数个数 = 0
 
@@ -88,6 +91,7 @@ export default main = (行迭代)->
         结尾 = 词
 
       if ~ ['->','=>'].indexOf(词)
+        括号栈.unshift [0,0,0]
         括号栈_push()
         layer = layer.sub(行号)
         push()
@@ -98,6 +102,7 @@ export default main = (行迭代)->
         if pos >= 0
           括号栈[0][pos]+=1
           layer = layer.sub 行号
+          push()
         else
           pos = ')]}'.indexOf 词
           if pos >= 0
@@ -111,7 +116,8 @@ export default main = (行迭代)->
                 break
             push()
             layer = layer.父
-            continue
+          else
+            push()
       if 函数个数 > 0
         if ['->','=>'].indexOf(结尾)<0 and not sum(括号栈[0])
           括号栈 = 括号栈[函数个数..]
@@ -120,7 +126,6 @@ export default main = (行迭代)->
           while 函数个数--
             layer = layer.父
 
-      push()
 
     前缩进 = 缩进
 

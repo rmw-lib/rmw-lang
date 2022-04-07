@@ -6,13 +6,13 @@ import 句法,{层} from './句法.coffee'
   前行 = 1
   run = (层)->
     for [行号,...行] from 层.li.reverse()
-      if 行号>前行 and 行[0][0]
-        yield '\n'+''.padEnd(
-          行[0][0] - 1
-        )
-        前行 = 行号
       for i from 行
         if Array.isArray i
+          if 行号>前行
+            yield '\n'+''.padEnd(
+              行[0][0] - 1
+            )
+            前行 = 行号
           [列,词] = i
           yield 词
         else
