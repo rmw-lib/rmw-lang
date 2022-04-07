@@ -19,11 +19,12 @@ import 句法,{层} from './句法.coffee'
       for i from 行
         if Array.isArray i
           [列,词] = i
+
           if 什么层 == undefined
             什么层 = 词
 
           if 行号>前行
-            if ~ ['-','=','=>','->'].indexOf 什么层
+            if ~ ['-','='].indexOf 什么层
               switch 词
                 when '-'
                   词 = 'const '

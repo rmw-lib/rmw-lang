@@ -38,7 +38,7 @@ export default main = (行迭代)->
   括号栈_push = =>
     括号栈.push [0,0,0]
   括号栈_push()
-  结尾 = undefined
+  开头 = 结尾 = undefined
 
   缩进块 = []
 
@@ -53,16 +53,17 @@ export default main = (行迭代)->
             括号栈_push()
             layer = layer.sub 行号
             break
-        else
-          if 缩进 < 前缩进
-            loop
-              t = 缩进块[0]
-              if t and t>=缩进
-                缩进块.shift()
-                括号栈.shift()
-                layer = layer.父
-              else
-                break
+        else if 缩进 < 前缩进
+          loop
+            t = 缩进块[0]
+            if t and t>=缩进
+              缩进块.shift()
+              括号栈.shift()
+              layer = layer.父
+            else
+              break
+        else if ~ '-='.indexOf layer.li[0]?[layer.li.length-1]
+          layer = layer.父
 
       try
         layer.line 行号
@@ -86,6 +87,10 @@ export default main = (行迭代)->
             t.push word
           throw new Error "行 #{行号} 列 #{列} : "+t.join('')
         return
+
+      if 位 == 0 and not sum(括号栈)
+        if ~ '-='.indexOf 词
+          layer = layer.sub 行
 
       if not 词.startsWith '#'
         结尾 = 词
