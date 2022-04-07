@@ -1,20 +1,23 @@
 #!/usr/bin/env coffee
 
-import 句法 from './句法.coffee'
+import 句法,{层} from './句法.coffee'
 
-编译 = (块)->
+编译 = (层)->
   前行 = 1
-  run = (块)->
-    for [行号,...行] from 块
-      if 行号>前行
+  run = (层)->
+    for [行号,...行] from 层.li.reverse()
+      if 行号>前行 and 行[0][0]
         yield '\n'+''.padEnd(
           行[0][0] - 1
         )
         前行 = 行号
       for i from 行
-        [列,词] = i
-        yield 词
-  return run(块)
+        if Array.isArray i
+          [列,词] = i
+          yield 词
+        else
+          yield from run i
+  return run(层)
 
 export default (行迭代)->
   yield from 编译(

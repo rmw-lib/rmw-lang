@@ -9,24 +9,45 @@ import 词法 from './词法.coffee'
   '('
   '['
   '{'
+  '?'
   '='
 ]
 
+export class 层
+  constructor:(@父)->
+    @li = []
+
+  sub:(行号)->
+    layer = new 层 @
+    layer.line 行号
+    @push layer
+    layer
+
+  line:(行号)->
+    @li.unshift [行号]
+    return
+
+  push:(o)->
+    @li[0].push o
+    return
+
 export default main = (行迭代)->
-  li = []
+  根 = layer = new 层
   for await line from 词法 行迭代
     [行号,...词组] = line
-    li.push line
-      ###
-    if not li.length
-      li.push 行号
-      if 没有括号 没有缩进
+    layer.line 行号
+
+    for 列词 from 词组
+      push = =>
+        layer.push 列词
+        return
+
+      [列,词] = 列词
       if ~ '([{'.indexOf 词
-        块 = new 层 行号,块
+        layer = layer.sub 行号
       else if ~ ')]}'.indexOf 词
-        块.push i
-        块 = 块.父
+        push()
+        layer = layer.父
         continue
-      块.push i
-      ###
-  return li
+      push()
+  return 根
