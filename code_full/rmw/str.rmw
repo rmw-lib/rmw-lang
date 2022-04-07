@@ -43,7 +43,7 @@ func(
 )
 
 func(
-  =>
+  => # test
     < b = a + 1
 )
 

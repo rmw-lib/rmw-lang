@@ -7,11 +7,6 @@ import {sum} from 'lodash-es'
 
 缩进前缀 = new Set [
   ':'
-  '=>'
-  '->'
-  '('
-  '['
-  '{'
   '?'
   '='
 ]
@@ -39,37 +34,40 @@ export class 层
 export default main = (行迭代)->
   根 = layer = new 层
   前缩进 = 1
-  括号栈 = [[0,0,0]]
+  括号栈 = []
+  括号栈_push = =>
+    括号栈.push [0,0,0]
+  括号栈_push()
+  结尾 = undefined
 
-  缩进_层 = []
+  缩进块 = []
 
   for await line from 词法 行迭代
     [行号,...词组] = line
     缩进 = 词组[0][0]
     if 0 == sum(括号栈[0])
       if 缩进 > 前缩进
-        if 前缩进 > 1
-          缩进_层.push [前缩进,layer]
-        layer = layer.sub 行号
+        if 缩进前缀.has 结尾
+          缩进块.push 缩进
+          括号栈_push()
+          layer = layer.sub 行号
       else
         if 缩进 < 前缩进
-          len = 缩进_层.length
-          t = undefined
           loop
-            x = 缩进_层.pop()
-            if x
-              [indent,i] = x
-              if indent <= 缩进
-                t = i
+            t = 缩进块[0]
+            if t and t>=缩进
+              缩进块.shift()
+              括号栈.shift()
+              layer = layer.父
             else
               break
-          layer = t or 根
+
         try
           layer.line 行号
         catch err
           throw new Error "行 #{行号} : "+词组.map((x)=>x[1]).join('')
 
-    有函数 = 0
+    函数个数 = 0
 
     for 列词,位 in 词组
       [列,词] = 列词
@@ -90,9 +88,11 @@ export default main = (行迭代)->
         结尾 = 词
 
       if ~ ['->','=>'].indexOf(词)
-        括号栈.unshift [0,0,0]
+        括号栈_push()
         layer = layer.sub(行号)
-        ++有函数
+        push()
+        ++函数个数
+        缩进块.unshift 缩进
       else
         pos = '([{'.indexOf 词
         if pos >= 0
@@ -102,20 +102,22 @@ export default main = (行迭代)->
           pos = ')]}'.indexOf 词
           if pos >= 0
             n = 0
-            loop
+            while 函数个数>0
               if (括号栈[0][pos]-=1) < 0
                 括号栈.shift()
                 layer = layer.父
-                --有函数
+                --函数个数
               else
                 break
             push()
             layer = layer.父
             continue
-      if 有函数 > 0
+      if 函数个数 > 0
         if ['->','=>'].indexOf(结尾)<0 and not sum(括号栈[0])
-          括号栈 = 括号栈[有函数..]
-          while 有函数--
+          括号栈 = 括号栈[函数个数..]
+          缩进块 = 缩进块[函数个数..]
+
+          while 函数个数--
             layer = layer.父
 
       push()
