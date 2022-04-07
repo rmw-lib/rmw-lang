@@ -1,5 +1,7 @@
 #!/usr/bin/env coffee
 
+import chalk from 'chalk'
+{redBright} = chalk
 import 词法 from './词法.coffee'
 import {sum} from 'lodash-es'
 
@@ -37,7 +39,6 @@ export class 层
 export default main = (行迭代)->
   根 = layer = new 层
   前缩进 = 1
-  前结尾 = undefined
   括号栈 = [[0,0,0]]
 
   缩进_层 = []
@@ -65,15 +66,29 @@ export default main = (行迭代)->
           layer = t or 根
         layer.line 行号
 
+    有函数 = 0
+
     for 列词,位 in 词组
+      [列,词] = 列词
+
       push = =>
-        layer.push 列词
+        try
+          layer.push 列词
+        catch err
+          t = []
+          for [col,word] from 词组
+            if col == 列
+              word = redBright(word)
+            t.push word
+          throw new Error "行 #{行号} 列 #{列} "+t.join('')
         return
 
-      [列,词] = 列词
+      if not 词.startsWith '#'
+        结尾 = 词
 
       if ~ ['->','=>'].indexOf(词)
         括号栈.unshift [0,0,0]
+        ++有函数
       else
         pos = '([{'.indexOf 词
         if pos >= 0
@@ -86,10 +101,11 @@ export default main = (行迭代)->
             push()
             layer = layer.父
             continue
-
+      if 有函数
+        if ['->','=>'].indexOf(结尾)<0 and not sum(括号栈[0])
+          括号栈 = 括号栈[有函数..]
       push()
 
     前缩进 = 缩进
-    前结尾 = 列词[1]
 
   return 根
