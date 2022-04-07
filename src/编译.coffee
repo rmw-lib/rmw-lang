@@ -6,10 +6,17 @@ import 句法,{层} from './句法.coffee'
   前行 = 1
   run = (层)->
     n = 0
+    右括号 = =>
+      r = ''.padEnd(n,')')
+      n = 0
+      r
+
     for [行号,...行] from 层.li.reverse()
       for i from 行
         if Array.isArray i
           if 行号>前行
+            if n
+              yield 右括号()
             yield '\n'+''.padEnd(
               行[0][0] - 1
             )
@@ -23,7 +30,7 @@ import 句法,{层} from './句法.coffee'
         else
           yield from run i
     if n
-      yield ''.padEnd(n,')')
+      yield 右括号()
   return run(层)
 
 export default (行迭代)->
