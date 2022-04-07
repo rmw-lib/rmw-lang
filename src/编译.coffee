@@ -3,7 +3,7 @@
 import 句法,{层} from './句法.coffee'
 
 编译 = (层)->
-  前行 = 1
+  前行 = 0
   run = (层)->
     n = 0
     右括号 = =>
@@ -11,17 +11,39 @@ import 句法,{层} from './句法.coffee'
       n = 0
       r
 
-    for [行号,...行] from 层.li.reverse()
+    li = 层.li.reverse()
+
+    什么层 = undefined
+
+    for [行号,...行] from li
       for i from 行
         if Array.isArray i
-          if 行号>前行
-            if n
-              yield 右括号()
-            yield '\n'+''.padEnd(
-              行[0][0] - 1
-            )
-            前行 = 行号
           [列,词] = i
+          if 什么层 == undefined
+            什么层 = 词
+
+          if 行号>前行
+            if ~ ['-','=','=>','->'].indexOf 什么层
+              switch 词
+                when '-'
+                  词 = 'const '
+                when '='
+                  词 = 'let '
+
+            if 前行
+              if n
+                yield 右括号()
+              if ~ ['-','='].indexOf 什么层
+                prefix = ',\n'
+              else
+                prefix = '\n'
+              yield prefix+''.padEnd(
+                行[0][0] - 1
+              )
+
+            前行 = 行号
+
+
           if 词 == ' '
             yield '('
             ++n

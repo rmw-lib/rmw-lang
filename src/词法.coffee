@@ -229,7 +229,8 @@ export default (行迭代)->
     行数组.reverse()
     for i,pos in 行数组
       if i[1]==' '
-        if 非调用后缀.has(行数组[pos+1]?[1])
+        t = 行数组[pos+1]?[1]
+        if 非调用后缀.has(t) or t.startsWith('#')
           continue
         else if (行数组[pos-1]?[1] == ')') and ~['=>','->'].indexOf(行数组[pos+1]?[1])
           continue
