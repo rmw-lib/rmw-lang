@@ -2,6 +2,8 @@
 
 import 句法,{层} from './句法.coffee'
 
+变量声明 = Symbol('变量声明')
+
 编译 = (层)->
   前行 = 0
   run = (层)->
@@ -13,23 +15,23 @@ import 句法,{层} from './句法.coffee'
 
     li = 层.li.reverse()
 
-    什么层 = undefined
-
-    for [行号,...行] from li
+    for [行号,...行],pos in li
+      态 = 0
       for i from 行
+
         if Array.isArray i
           [列,词] = i
 
-          if 什么层 == undefined
-            什么层 = 词
-
-          if 行号>前行
-            if ~ ['-','='].indexOf 什么层
+          换行 = 行号>前行
+          if 换行
+            if pos == 0
               switch 词
-                when '-'
-                  词 = 'const '
-                when '='
-                  词 = 'let '
+                when '-','='
+                  词 = {
+                    '-':'const '
+                    '=':'let '
+                  }[词]
+                  态 = 变量声明
 
             if 前行
               yield '\n'.padEnd(
@@ -57,9 +59,9 @@ import 句法,{层} from './句法.coffee'
       if n
         yield 右括号()
 
-      if ~ ['-','='].indexOf 什么层
-        if not (行.length == 1 and 行[0][1] == 什么层)
-          yield ','
+      #if ~ ['-','='].indexOf 什么层
+      #  if not (行.length == 1 and 行[0][1] == 什么层)
+      #    yield ','
     if n
       yield 右括号()
   return run(层)
