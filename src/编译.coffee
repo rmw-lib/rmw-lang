@@ -58,7 +58,8 @@ import 句法,{层} from './句法.coffee'
         yield 右括号()
 
       if ~ ['-','='].indexOf 什么层
-        yield ','
+        if not (行.length == 1 and 行[0][1] == 什么层)
+          yield ','
     if n
       yield 右括号()
   return run(层)
