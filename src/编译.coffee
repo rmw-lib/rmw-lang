@@ -5,6 +5,7 @@ import 句法,{层} from './句法.coffee'
 编译 = (层)->
   前行 = 1
   run = (层)->
+    n = 0
     for [行号,...行] from 层.li.reverse()
       for i from 行
         if Array.isArray i
@@ -14,9 +15,15 @@ import 句法,{层} from './句法.coffee'
             )
             前行 = 行号
           [列,词] = i
-          yield 词
+          if 词 == ' '
+            yield '('
+            ++n
+          else
+            yield 词
         else
           yield from run i
+    if n
+      yield ''.padEnd(n,')')
   return run(层)
 
 export default (行迭代)->
