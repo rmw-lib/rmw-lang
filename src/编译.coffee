@@ -31,26 +31,33 @@ import 句法,{层} from './句法.coffee'
                   词 = 'let '
 
             if 前行
-              if n
-                yield 右括号()
-              if ~ ['-','='].indexOf 什么层
-                prefix = ',\n'
-              else
-                prefix = '\n'
-              yield prefix+''.padEnd(
+              yield '\n'.padEnd(
                 行[0][0] - 1
               )
 
             前行 = 行号
 
 
-          if 词 == ' '
-            yield '('
-            ++n
+          if 词.startsWith '#'
+            if 词.charAt(1) == '|'
+              yield '/*'+词[2..]+'*/'
+            else
+              yield '//'+词[1..]
           else
-            yield 词
+            switch 词
+              when ' '
+                yield '('
+                ++n
+              else
+                yield 词
         else
           yield from run i
+
+      if n
+        yield 右括号()
+
+      if ~ ['-','='].indexOf 什么层
+        yield ','
     if n
       yield 右括号()
   return run(层)
