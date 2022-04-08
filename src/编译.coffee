@@ -40,11 +40,14 @@ import 句法,{层} from './句法.coffee'
             if cpos == 0
               块缩进 = 行缩进[行号]
 
-            if 词 == '=>'
-              态 = 词
-              if 前层?.li[0]?[1]?[1]!='('
-                词 = '()'+词
-              词 += '{'
+            switch 词
+              when '('
+                态 = 词
+              when '=>'
+                态 = 词
+                if 前层?.li[0]?[1]?[1]!='('
+                  词 = '()'+词
+                词 += '{'
 
           换行 = 行号>前行
           if 换行
@@ -57,6 +60,10 @@ import 句法,{层} from './句法.coffee'
                   }[词]
                   态 = 变量声明
             if 前行
+              if 态 == '('
+                if pos > 1 or li[0].length > 2
+                  yield ','
+
               if not ( 态 == 变量声明 and li[0].length == 2 and pos == 1)
                 yield '\n'+''.padEnd(
                   行[0][0] - 1
