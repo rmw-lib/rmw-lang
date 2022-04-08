@@ -463,12 +463,11 @@ dict3 = {
 
 ## import 导入模块
 
-> fs net
->
-  fs
-    . writeFileSync readFileSync
+> fs net:网络
+> fs:文件
+    writeFileSync:写 readFileSync
   http
-    get post
+    . get post
 
 ## await import 异步导入模块
 

@@ -1,4 +1,11 @@
-> fs
+> fs net:网络
+> fs:文件
+    writeFileSync:写 readFileSync
+  http
+    . get post
+
+>
+  fs
 
 < x = =>
 
