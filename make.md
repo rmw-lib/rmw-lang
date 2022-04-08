@@ -468,6 +468,12 @@ dict3 = {
     writeFileSync:写 readFileSync
   http
     . get post
+  net
+    *:网络
+
+>
+  fs
+    readFileSync
 
 ## await import 异步导入模块
 
