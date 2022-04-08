@@ -6,6 +6,7 @@ import 句法,{层} from './句法.coffee'
 
 编译 = (层)->
   前行 = 0
+  行缩进 = {}
   run = (层)->
     n = 0
     右括号 = =>
@@ -17,6 +18,7 @@ import 句法,{层} from './句法.coffee'
 
     len = li.length - 1
     态 = 0
+
     for [行号,...行],pos in li
       ended = ->
         if 态 == 变量声明
@@ -25,16 +27,20 @@ import 句法,{层} from './句法.coffee'
           else if not (pos==0 and 行.length==1)
             yield ','
 
-      for i from 行
+      for i,cpos in 行
 
         if Array.isArray i
           [列,词] = i
+          if not (行号 of 行缩进)
+            行缩进[行号] = 列-1
 
           if pos == 0
+            if cpos == 0
+              块缩进 = 行缩进[行号]
+
             if 词 == '=>'
               态 = 词
-              if li.length > 1
-                词 += '{'
+              词 += '{'
 
           换行 = 行号>前行
           if 换行
@@ -75,8 +81,11 @@ import 句法,{层} from './句法.coffee'
       if n
         yield 右括号()
 
-    if 态 == '=>' and li.length > 1
-      yield '}'
+    switch 态
+      when '=>'
+        if li.length > 1
+          yield '\n'+''.padEnd(块缩进)
+        yield '}'
 
       #if ~ ['-','='].indexOf 什么层
       #  if not (行.length == 1 and 行[0][1] == 什么层)
