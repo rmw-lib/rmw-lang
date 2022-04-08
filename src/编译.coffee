@@ -4,14 +4,10 @@ import 句法,{层} from './句法.coffee'
 import chalk from 'chalk'
 import {$log} from './rmw-lang'
 import _变量层 from './变量层'
+import 转注释 from './转注释'
 
 变量声明 = Symbol('变量声明')
 
-转注释 = (词)=>
-  if 词.charAt(1) == '|'
-    return '/*'+词[2..]+'*/'
-  else
-    return ' //'+词[1..]
 
 导入 = (li)->
   模块缩进 = 模块 = undefined
@@ -32,7 +28,7 @@ import _变量层 from './变量层'
             if cpos == 1
               yield '\n'
           else
-            模块缩进 = 缩进
+            模块缩进 = 列
 
           if 缩进 <= 模块缩进
             模块 = 词
@@ -47,8 +43,9 @@ import _变量层 from './变量层'
           else
             if cpos == 1
               yield 'import {'
-      if 缩进 > 模块缩进
-        yield "} from '#{模块}'"
+            yield 词
+    if 缩进 > 模块缩进
+      yield "} from '#{模块}'\n"
   if li.length
     yield '\n'
   return

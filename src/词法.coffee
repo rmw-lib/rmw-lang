@@ -1,4 +1,5 @@
 #!/usr/bin/env coffee
+import {$log} from './rmw-lang'
 
 文态 = '\'"`'
 export 非代码态 = new Set 文态 + '#'
@@ -138,6 +139,7 @@ _词法 = (行迭代)->
             ++列
           else
             break
+        列始 = 列
         if 非调用前缀.has(前) or 列 == 行长
           continue
         else
