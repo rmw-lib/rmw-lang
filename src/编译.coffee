@@ -30,6 +30,12 @@ import 句法,{层} from './句法.coffee'
         if Array.isArray i
           [列,词] = i
 
+          if pos == 0
+            if 词 == '=>'
+              态 = 词
+              if li.length > 1
+                词 += '{'
+
           换行 = 行号>前行
           if 换行
             if pos == 0
@@ -68,6 +74,9 @@ import 句法,{层} from './句法.coffee'
 
       if n
         yield 右括号()
+
+    if 态 == '=>' and li.length > 1
+      yield '}'
 
       #if ~ ['-','='].indexOf 什么层
       #  if not (行.length == 1 and 行[0][1] == 什么层)
