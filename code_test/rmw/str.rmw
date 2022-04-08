@@ -1,4 +1,12 @@
 
+> fs net
+>
+  fs
+    . writeFileSync readFileSync
+  http
+    get post
+
+
 console.log(1)
 do =>
   < 1
