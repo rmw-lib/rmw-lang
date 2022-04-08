@@ -461,13 +461,6 @@ dict3 = {
 
 开始和结束的缩进需要一致，这样就可以嵌套多行注释
 
-## export 导出变量
-
-< func = =>
-< User:
-< =>
-< = main = =>
-
 ## import 导入模块
 
 > fs net
@@ -484,6 +477,18 @@ fs =< > fs
 {readFileSync} =< > fs
 
 {readFileSync:read} =< > fs
+
+## export 导出变量
+
+< x = =>
+
+< = main = ->
+
+<= main = ->
+
+< ->
+  console.log 1
+
 
 ## export from
 

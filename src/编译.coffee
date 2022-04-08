@@ -43,6 +43,10 @@ import _变量层 from './变量层'
           if pos == 0
               块缩进 = 行缩进[行号]
               switch 词
+                when '>'
+                  if cpos==0 and 列==1
+                    态 = 词
+                    词 = ''
                 when '<='
                   if cpos==0 and 列==1
                     词 = 'export default '
@@ -66,8 +70,6 @@ import _变量层 from './变量层'
                         变量名 = 行[1][1]
                         if 变量层.upsert 变量名
                           词 += 'const '
-
-
                   else
                     词 = 'return '
                 when '<<'
