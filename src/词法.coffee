@@ -139,8 +139,8 @@ _词法 = (行迭代)->
             ++列
           else
             break
-        列始 = 1+列
         if 非调用前缀.has(前) or 列 == 行长
+          列始 = 1+列
           continue
         else
           暂.unshift 字
