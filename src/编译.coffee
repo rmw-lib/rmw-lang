@@ -40,14 +40,15 @@ import chalk from 'chalk'
           if pos == 0
             if cpos == 0
               块缩进 = 行缩进[行号]
+              switch 词
+                when '<'
+                  词 = 'return '
+                when '<<'
+                  词 = 'yield '
+                when '<<<'
+                  词 = 'yield* '
 
             switch 词
-              when '<'
-                词 = 'return '
-              when '<<'
-                词 = 'yield '
-              when '<<<'
-                词 = 'yield* '
               when '('
                 态 = 词
               when '=>'
