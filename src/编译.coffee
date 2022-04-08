@@ -53,7 +53,7 @@ import chalk from 'chalk'
                 态 = 词
               when '=>'
                 态 = 词
-                if 前层?.li[0]?[1]?[1]!='('
+                if cpos==0
                   词 = '()'+词
                 词 += '{'
 

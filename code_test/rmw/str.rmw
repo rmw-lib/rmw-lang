@@ -1,6 +1,6 @@
 
 console.log(1)
-=>
+do =>
   < (a < b)
   < a
 console.log(1)
