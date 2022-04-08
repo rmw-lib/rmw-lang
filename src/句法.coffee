@@ -6,11 +6,6 @@ import {$log} from './rmw-lang'
 import 词法 from './词法.coffee'
 import {sum} from 'lodash-es'
 
-缩进前缀 = new Set [
-  ':'
-  '?'
-  '='
-]
 返回 = ['<','<<','<<<']
 
 export class 层
@@ -33,6 +28,12 @@ export class 层
 
 左括号 = '({['
 
+单行块 = new Set [
+  '<='
+  '<>'
+  ...返回
+]
+
 export default main = (行迭代)->
   根 = layer = new 层
   前缩进 = 1
@@ -48,8 +49,18 @@ export default main = (行迭代)->
     [行号,...词组] = line
     缩进 = 词组[0][0]
 
+    layer_li1 = =>
+      layer.li[layer.li.length-1]?[1]
+
+    if layer_li1()?[1] == '>'
+      if 缩进==1
+        layer = 根
+        前缩进 = 1
+      else
+        continue
+
     寻根 = =>
-      li1 = layer.li[layer.li.length-1]?[1]
+      li1 = layer_li1()
       if li1
         li11 = li1[1]
         if ~ '-='.indexOf li11
@@ -57,22 +68,16 @@ export default main = (行迭代)->
           if 缩进 <= t
             layer = layer.父
             前缩进 = t
-        else if li11 == '<=' or (~ 返回.indexOf li11)
+        else if 单行块.has li11
           layer = layer.父
           前缩进 = li1[0]
 
-
     loop
+
       if 0 == sum(括号栈[0])
         寻根()
 
-        if 缩进 > 前缩进
-          if 缩进前缀.has 结尾
-            缩进块.push 缩进
-            括号栈_push()
-            layer = layer.sub 行号
-            break
-        else if 缩进 <= 前缩进
+        if 缩进 <= 前缩进
           loop
             t = 缩进块[0]
             if t and t>=缩进
@@ -113,7 +118,9 @@ export default main = (行迭代)->
           if (
             ~ ['-','=',...返回].indexOf 词
           ) or (
-            词=='<=' and 列 == 1
+            列 == 1 and (
+              ~ ['<=','<>','>'].indexOf 词
+            )
           )
             layer = layer.sub 行号
 

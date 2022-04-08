@@ -7,6 +7,23 @@ import _变量层 from './变量层'
 
 变量声明 = Symbol('变量声明')
 
+转注释 = (词)=>
+  if 词.charAt(1) == '|'
+    return '/*'+词[2..]+'*/'
+  else
+    return '//'+词[1..]
+
+导入层 = (li)->
+  for [行号,...行],pos in li
+    for i,cpos in 行
+      [列,词] = i
+      if 词.startsWith '#'
+        yield 转注释(词)
+      else
+        yield 词
+    yield '\n'
+  return
+
 编译 = (层)->
   变量层 = new _变量层()
   前行 = 0
@@ -25,6 +42,7 @@ import _变量层 from './变量层'
     len = li.length - 1
     态 = 0
 
+    `out: //`
     for [行号,...行],pos in li
       ended = ->
         if 态 == 变量声明
@@ -37,16 +55,20 @@ import _变量层 from './变量层'
 
         if Array.isArray i
           [列,词] = i
+
+          switch 词
+            when '>'
+              if cpos==0 and 列==1
+                态 = 词
+                yield from 导入层(层.li)
+                `break out`
+
           if not (行号 of 行缩进)
             行缩进[行号] = 列-1
 
           if pos == 0
               块缩进 = 行缩进[行号]
               switch 词
-                when '>'
-                  if cpos==0 and 列==1
-                    态 = 词
-                    词 = ''
                 when '<='
                   if cpos==0 and 列==1
                     词 = 'export default '
@@ -120,10 +142,7 @@ import _变量层 from './变量层'
           注释 = 词.startsWith '#'
           if 注释
             yield from ended()
-            if 词.charAt(1) == '|'
-              yield '/*'+词[2..]+'*/'
-            else
-              yield '//'+词[1..]
+            yield 转注释(词)
           else
             switch 词
               when ' '
