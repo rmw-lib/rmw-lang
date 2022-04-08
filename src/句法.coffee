@@ -99,15 +99,16 @@ export default main = (行迭代)->
           throw new Error "行 #{行号} 列 #{列} : "+t.join('')
         return
 
-      if 位 == 0 and  0 == sum(括号栈[0])
-        if ~ ['-','=',...返回].indexOf 词
-          layer = layer.sub 行号
+
+      if 位 == 0
+        if 0 == sum(括号栈[0])
+          if ~ ['-','=',...返回].indexOf 词
+            layer = layer.sub 行号
 
       if not 词.startsWith '#'
         结尾 = 词
 
       if ~ ['->','=>'].indexOf(词)
-        括号栈.unshift [0,0,0]
         括号栈_push()
         layer = layer.sub(行号)
         push()
@@ -123,13 +124,14 @@ export default main = (行迭代)->
           pos = ')]}'.indexOf 词
           if pos >= 0
             n = 0
-            while 函数个数>0
-              if (括号栈[0][pos]-=1) < 0
+            while 函数个数>0 and 括号栈.length > 1
+              if (括号栈[0][pos]-1) < 0
                 括号栈.shift()
                 layer = layer.父
                 --函数个数
               else
                 break
+            括号栈[0][pos]-=1
             push()
             layer = layer.父
           else

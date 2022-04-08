@@ -1,12 +1,6 @@
-b = (a)->
-  < a < b
-  < a     +       c
-  < a
-  << (
-    a
-    +
-    c
-  )
-  <<<    a
 
-$log 1
+console.log(1)
+=>
+  < (a < b)
+  < a
+console.log(1)
