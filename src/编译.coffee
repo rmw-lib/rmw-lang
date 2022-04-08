@@ -2,6 +2,7 @@
 
 import 句法,{层} from './句法.coffee'
 import chalk from 'chalk'
+import {$log} from './rmw-lang'
 
 变量声明 = Symbol('变量声明')
 
@@ -38,11 +39,21 @@ import chalk from 'chalk'
             行缩进[行号] = 列-1
 
           if pos == 0
-            if cpos == 0
               块缩进 = 行缩进[行号]
               switch 词
+                when '<='
+                  if cpos==0 and 列==1
+                    词 = 'export default '
                 when '<'
-                  词 = 'return '
+                  if cpos==0 and 列==1
+                    词 = 'export '
+                    if 行[1]?[1] == '='
+                      行[1][1] = 'default '
+                    else if 行[2]?[1] != '='
+                      词 += 'default '
+
+                  else
+                    词 = 'return '
                 when '<<'
                   词 = 'yield '
                 when '<<<'

@@ -1,20 +1,8 @@
-> ./句法
-    . 层
+< x = =>
 
-> fs net:网络
->
-  fs
-    .:文件 writeFileSync:写 readFileSync
+<= main = ->
 
-> < fs
+< = main = ->
 
-a =< > fs
-
-console.log fs
-
-< test = =>
-
-< = =>
-
-< = ->
+< ->
   console.log 1

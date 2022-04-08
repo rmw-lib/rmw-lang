@@ -1,6 +1,7 @@
 #!/usr/bin/env coffee
 
 import chalk from 'chalk'
+import {$log} from './rmw-lang'
 {redBright} = chalk
 import 词法 from './词法.coffee'
 import {sum} from 'lodash-es'
@@ -46,19 +47,24 @@ export default main = (行迭代)->
   for await line from 词法 行迭代
     [行号,...词组] = line
     缩进 = 词组[0][0]
+
+    寻根 = =>
+      li1 = layer.li[layer.li.length-1]?[1]
+      if li1
+        li11 = li1[1]
+        if ~ '-='.indexOf li11
+          t = li1[0]
+          if 缩进 <= t
+            layer = layer.父
+            前缩进 = t
+        else if li11 == '<=' or (~ 返回.indexOf li11)
+          layer = layer.父
+          前缩进 = li1[0]
+
+
     loop
       if 0 == sum(括号栈[0])
-        li1 = layer.li[layer.li.length-1]?[1]
-        if li1
-          if ~ '-='.indexOf li1[1]
-            t = li1[0]
-            if 缩进 <= t
-              layer = layer.父
-              前缩进 = t
-          else if ~ 返回.indexOf li1[1]
-            layer = layer.父
-            前缩进 = li1[0]
-
+        寻根()
 
         if 缩进 > 前缩进
           if 缩进前缀.has 结尾
@@ -75,6 +81,8 @@ export default main = (行迭代)->
               layer = layer.父
             else
               break
+
+        寻根()
 
       try
         layer.line 行号
@@ -102,7 +110,11 @@ export default main = (行迭代)->
 
       if 位 == 0
         if 0 == sum(括号栈[0])
-          if ~ ['-','=',...返回].indexOf 词
+          if (
+            ~ ['-','=',...返回].indexOf 词
+          ) or (
+            词=='<=' and 列 == 1
+          )
             layer = layer.sub 行号
 
       if not 词.startsWith '#'
