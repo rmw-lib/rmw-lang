@@ -61,7 +61,11 @@ import 句法,{层} from './句法.coffee'
                   态 = 变量声明
             if 前行
               if 态 == '('
-                if pos > 1 or li[0].length > 2
+                if (pos > 1 and pos < len) or (
+                  pos == 1 and li[0].length > 2
+                ) or (
+                  pos == len and li[len].length > 2
+                )
                   yield ','
 
               if not ( 态 == 变量声明 and li[0].length == 2 and pos == 1)
