@@ -141,7 +141,7 @@ import _变量层 from './变量层'
 
     switch 态
       when '=>','->'
-        if li.length > 1
+        if li.length > 1 or 词.startsWith('#')
           yield '\n'+''.padEnd(块缩进)
         yield '}'
 
