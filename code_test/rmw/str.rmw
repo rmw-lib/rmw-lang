@@ -8,6 +8,8 @@
 
 > < fs
 
+a =< > fs
+
 console.log fs
 
 < test = =>
@@ -15,3 +17,4 @@ console.log fs
 < = =>
 
 < = ->
+  console.log 1

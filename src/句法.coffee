@@ -66,7 +66,7 @@ export default main = (行迭代)->
             括号栈_push()
             layer = layer.sub 行号
             break
-        else if 缩进 < 前缩进
+        else if 缩进 <= 前缩进
           loop
             t = 缩进块[0]
             if t and t>=缩进

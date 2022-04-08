@@ -111,7 +111,7 @@ import chalk from 'chalk'
         yield 右括号()
 
     switch 态
-      when '=>'
+      when '=>','->'
         if li.length > 1
           yield '\n'+''.padEnd(块缩进)
         yield '}'
