@@ -463,7 +463,7 @@ dict3 = {
 
 开始和结束的缩进需要一致，这样就可以嵌套多行注释
 
-## 导出变量
+## export 导出变量
 
 < func = =>
 < User:
@@ -479,13 +479,37 @@ dict3 = {
   http
     get post
 
-## 异步导入模块
+## await import 异步导入模块
 
 fs =< > fs
 
 {readFileSync} =< > fs
 
 {readFileSync:read} =< > fs
+
+## export from
+
+<> fs
+
+export * from fs
+
+<> fs net
+
+export * from fs
+export * from net
+
+<> fs:xxx
+
+export * as xxx from fs
+
+<> fs
+  . writeFileSync
+
+export {default,writeFileSync} from fs
+
+
+
+
 
 ## 中文全局对象
 

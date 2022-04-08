@@ -4,6 +4,7 @@
   fs
     .:文件 writeFileSync:写 readFileSync
 
+> < fs
 
 console.log fs
 
