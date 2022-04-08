@@ -85,7 +85,7 @@ RMW = join CODE,'rmw'
             if i == 注释
               txt = 行[位置..]
               暂存.push txt
-              if 无缩进行.startsWith '#|'
+              if 无缩进行.startsWith '#:'
                 暂存[2] = 状态 = 多行注释
                 块缩进 = 缩进长
               `break 外层循环`
@@ -285,7 +285,7 @@ export default 句法 = (行迭代)->
     if 态变 and 前态是注释
       switch 前态
         when 多行注释
-          rt '\n'+暂2文('\n').replace('#|','/*')+'\n'+''.padEnd(暂[0][1])+'*/'
+          rt '\n'+暂2文('\n').replace('#:','/*')+'\n'+''.padEnd(暂[0][1])+'*/'
         when 注释
           rt 暂2文('').replace('#','//')
 

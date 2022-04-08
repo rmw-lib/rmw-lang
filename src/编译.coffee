@@ -29,6 +29,12 @@ import _变量层 from './变量层'
         if '>' != 词
           ++n
           if (not 前缩进) or 缩进 > 前缩进
+            if 行[cpos]?[1] == ':'
+              新名 = 行[++cpos]?[1]
+              if 新名
+                yield "import { default as #{新名} } from '#{词}'\n"
+                ++cpos
+                continue
             yield "import #{词} from '#{词}'\n"
     if n>0
       前缩进 = 缩进

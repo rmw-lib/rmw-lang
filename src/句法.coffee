@@ -8,7 +8,7 @@ import {sum} from 'lodash-es'
 
 返回 = ['<','<<','<<<']
 
-非空格 = (x)=>x!=' '
+非空格 = (x)=>x[1]!=' '
 
 export class 层
   constructor:(@父)->
@@ -106,7 +106,7 @@ export default main = (行迭代)->
       无括号 = 0 == sum(括号栈[0])
 
       if 无括号 and 列 == 1 and 词 == '>'
-        layer = 根.sub ...line.filter 非空格
+        layer = 根.sub ...line.filter(非空格)
         break
 
       push = =>

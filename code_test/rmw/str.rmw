@@ -1,8 +1,10 @@
 > fs net:网络 # 测试
-> fs:文件 # 测试
+> fs:文件 # test
     writeFileSync:写 readFileSync
   http
     . get post
+  net
+    *:网络
 
 >
   fs
