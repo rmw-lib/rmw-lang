@@ -187,10 +187,10 @@ _词法 = (行迭代)->
                     列 = pos
             when ~ 三字符.indexOf(字)
               if 次 == 字
-                if 行[列] == '='
-                  暂.unshift '='
+                t = 行[列]
+                if t == '=' or ( t == '<' and 字 == '<' )
+                  暂.unshift t
                   ++ 列
-
           yield 封()
         else if 操作符.has(字)
           yield 封()
