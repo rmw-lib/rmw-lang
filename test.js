@@ -1,5 +1,5 @@
 import {
-  default as 文件
+  readFileSync
 } from 'fs'
 
-console.log(文件)
+console.log(readFileSync)
