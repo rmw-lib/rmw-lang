@@ -7,6 +7,8 @@ import 句法,{层} from './句法.coffee'
 编译 = (层)->
   前行 = 0
   行缩进 = {}
+  前层 = undefined
+
   run = (层)->
     n = 0
     右括号 = =>
@@ -40,6 +42,8 @@ import 句法,{层} from './句法.coffee'
 
             if 词 == '=>'
               态 = 词
+              if 前层?.li[0]?[1]?[1]!='('
+                词 = '()'+词
               词 += '{'
 
           换行 = 行号>前行
@@ -92,6 +96,9 @@ import 句法,{层} from './句法.coffee'
       #    yield ','
     if n
       yield 右括号()
+    前层 = 层
+    return
+
   return run(层)
 
 export default (行迭代)->
