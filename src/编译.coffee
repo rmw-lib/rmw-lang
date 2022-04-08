@@ -143,7 +143,7 @@ import 导入 from './导入'
 
     switch 态
       when '=>','->'
-        if li.length > 1 or 词.startsWith('#')
+        if li.length > 1
           yield '\n'+''.padEnd(块缩进)
         yield '}'
 

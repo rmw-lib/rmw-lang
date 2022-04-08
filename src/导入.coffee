@@ -22,14 +22,15 @@ export default (li)->
       [列,词] = 行[cpos++]
       if cpos == 1
         缩进 = 列
+
+      if 模块缩进 and 缩进 <= 模块缩进 and cpos == 1
+        yield '\n'
+
       if 词.startsWith '#'
         yield 转注释(词)
       else
         if '>' != 词
-          if 模块缩进
-            if cpos == 1
-              yield '\n'
-          else
+          if not 模块缩进
             模块缩进 = 列
 
           if 缩进 <= 模块缩进
@@ -54,7 +55,7 @@ export default (li)->
               continue
             yield 词
     if 缩进 > 模块缩进
-      yield " } from '#{模块}'\n"
+      yield " } from '#{模块}'"
   if li.length
     yield '\n'
   return
