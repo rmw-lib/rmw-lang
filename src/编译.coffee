@@ -13,14 +13,26 @@ import _变量层 from './变量层'
   else
     return '//'+词[1..]
 
-导入层 = (li)->
+导入 = (li)->
+  前缩进 = 0
   for [行号,...行],pos in li
-    for i,cpos in 行
-      [列,词] = i
+    n = 0
+    len = 行.length
+    cpos = 0
+    while cpos < len
+      [列,词] = 行[cpos++]
+      if cpos == 1
+        缩进 = 列
       if 词.startsWith '#'
         yield 转注释(词)
       else
-        yield 词
+        if '>' != 词
+          ++n
+          if (not 前缩进) or 缩进 > 前缩进
+            yield "import #{词} from '#{词}'\n"
+    if n>0
+      前缩进 = 缩进
+
     yield '\n'
   return
 
@@ -58,7 +70,7 @@ import _变量层 from './变量层'
           switch 词
             when '>'
               if cpos==0 and 列==1
-                yield from 导入层(层.li)
+                yield from 导入(层.li)
                 return
 
           if not (行号 of 行缩进)
