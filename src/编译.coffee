@@ -11,10 +11,11 @@ import _变量层 from './变量层'
   if 词.charAt(1) == '|'
     return '/*'+词[2..]+'*/'
   else
-    return '//'+词[1..]
+    return ' //'+词[1..]
 
 导入 = (li)->
-  前缩进 = 0
+  模块缩进 = 模块 = undefined
+
   for [行号,...行],pos in li
     n = 0
     len = 行.length
@@ -27,18 +28,28 @@ import _变量层 from './变量层'
         yield 转注释(词)
       else
         if '>' != 词
-          ++n
-          if (not 前缩进) or 缩进 > 前缩进
+          if 模块缩进
+            if cpos == 1
+              yield '\n'
+          else
+            模块缩进 = 缩进
+
+          if 缩进 <= 模块缩进
+            模块 = 词
             if 行[cpos]?[1] == ':'
               新名 = 行[++cpos]?[1]
               if 新名
-                yield "import { default as #{新名} } from '#{词}'\n"
+                yield "import { default as #{新名} } from '#{词}'"
                 ++cpos
                 continue
-            yield "import #{词} from '#{词}'\n"
-    if n>0
-      前缩进 = 缩进
-
+            if 行[cpos]?[0] <= 模块缩进
+              yield "import #{词} from '#{词}'"
+          else
+            if cpos == 1
+              yield 'import {'
+      if 缩进 > 模块缩进
+        yield "} from '#{模块}'"
+  if li.length
     yield '\n'
   return
 
