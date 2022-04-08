@@ -42,7 +42,6 @@ import _变量层 from './变量层'
     len = li.length - 1
     态 = 0
 
-    `out: //`
     for [行号,...行],pos in li
       ended = ->
         if 态 == 变量声明
@@ -59,9 +58,8 @@ import _变量层 from './变量层'
           switch 词
             when '>'
               if cpos==0 and 列==1
-                态 = 词
                 yield from 导入层(层.li)
-                `break out`
+                return
 
           if not (行号 of 行缩进)
             行缩进[行号] = 列-1

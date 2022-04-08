@@ -12,14 +12,14 @@ export class 层
   constructor:(@父)->
     @li = []
 
-  sub:(行号)->
+  sub:(args...)->
     layer = new 层 @
-    layer.line 行号
+    layer.line args
     @push layer
     layer
 
-  line:(行号)->
-    @li.unshift [行号]
+  line:(args)->
+    @li.unshift args
     return
 
   push:(o)->
@@ -57,6 +57,7 @@ export default main = (行迭代)->
         layer = 根
         前缩进 = 1
       else
+        layer.line line
         continue
 
     寻根 = =>
@@ -90,7 +91,7 @@ export default main = (行迭代)->
         寻根()
 
       try
-        layer.line 行号
+        layer.line [行号]
       catch err
         throw new Error "行 #{行号} : "+词组.map((x)=>x[1]).join('')
       break
@@ -99,6 +100,12 @@ export default main = (行迭代)->
 
     for 列词,位 in 词组
       [列,词] = 列词
+
+      无括号 = 0 == sum(括号栈[0])
+
+      if 无括号 and 列 == 1 and 词 == '>'
+        layer = 根.sub 行号,...词组
+        break
 
       push = =>
         try
@@ -112,14 +119,13 @@ export default main = (行迭代)->
           throw new Error "行 #{行号} 列 #{列} : "+t.join('')
         return
 
-
       if 位 == 0
-        if 0 == sum(括号栈[0])
+        if 无括号
           if (
             ~ ['-','=',...返回].indexOf 词
           ) or (
             列 == 1 and (
-              ~ ['<=','<>','>'].indexOf 词
+              ~ ['<=','<>','<'].indexOf 词
             )
           )
             layer = layer.sub 行号
