@@ -10,6 +10,7 @@ import {sum} from 'lodash-es'
   '?'
   '='
 ]
+返回 = ['<','<<','<<<']
 
 export class 层
   constructor:(@父)->
@@ -48,11 +49,16 @@ export default main = (行迭代)->
     loop
       if 0 == sum(括号栈[0])
         li1 = layer.li[layer.li.length-1]?[1]
-        if li1 and ~ '-='.indexOf li1[1]
-          t = li1[0]
-          if 缩进 <= t
+        if li1
+          if ~ '-='.indexOf li1[1]
+            t = li1[0]
+            if 缩进 <= t
+              layer = layer.父
+              前缩进 = t
+          else if ~ 返回.indexOf li1[1]
             layer = layer.父
-            前缩进 = t
+            前缩进 = li1[0]
+
 
         if 缩进 > 前缩进
           if 缩进前缀.has 结尾
@@ -94,7 +100,7 @@ export default main = (行迭代)->
         return
 
       if 位 == 0 and  0 == sum(括号栈[0])
-        if ~ '-='.indexOf 词
+        if ~ ['-','=',...返回].indexOf 词
           layer = layer.sub 行号
 
       if not 词.startsWith '#'

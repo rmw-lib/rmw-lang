@@ -1,6 +1,7 @@
 #!/usr/bin/env coffee
 
 import 句法,{层} from './句法.coffee'
+import chalk from 'chalk'
 
 变量声明 = Symbol('变量声明')
 
@@ -41,6 +42,12 @@ import 句法,{层} from './句法.coffee'
               块缩进 = 行缩进[行号]
 
             switch 词
+              when '<'
+                词 = 'return '
+              when '<<'
+                词 = 'yield '
+              when '<<<'
+                词 = 'yield* '
               when '('
                 态 = 词
               when '=>'

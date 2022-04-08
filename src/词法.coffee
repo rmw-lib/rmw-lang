@@ -185,12 +185,12 @@ _词法 = (行迭代)->
                   if 正则
                     暂.unshift 行[列...pos]
                     列 = pos
-            when ~ 三字符.indexOf(字)
-              if 次 == 字
-                t = 行[列]
-                if t == '=' or ( t == '<' and 字 == '<' )
-                  暂.unshift t
-                  ++ 列
+          if ~ 三字符.indexOf(字)
+            if 次 == 字
+              t = 行[列]
+              if t == '=' or ( t == '<' and 字 == '<' )
+                暂.unshift t
+                ++ 列
           yield 封()
         else if 操作符.has(字)
           yield 封()
