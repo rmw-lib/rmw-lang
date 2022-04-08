@@ -1,6 +1,6 @@
 #!/usr/bin/env coffee
 
-export default class 变量层
+export default class _变量层
   constructor:->
     @li = [new Set()]
 
@@ -12,6 +12,14 @@ export default class 变量层
     for i from @li
       if i.has(key)
         return true
+    false
+
+
+  upsert:(key)->
+    r = @has key
+    if r == false
+      @add key
+      return true
     false
 
   new:->

@@ -3,10 +3,12 @@
 import 句法,{层} from './句法.coffee'
 import chalk from 'chalk'
 import {$log} from './rmw-lang'
+import _变量层 from './变量层'
 
 变量声明 = Symbol('变量声明')
 
 编译 = (层)->
+  变量层 = new _变量层()
   前行 = 0
   行缩进 = {}
   前层 = undefined
@@ -44,13 +46,27 @@ import {$log} from './rmw-lang'
                 when '<='
                   if cpos==0 and 列==1
                     词 = 'export default '
+                    变量名 = 行[1]?[1]
+                    if 变量名
+                      if 变量层.upsert 变量名
+                        词 += 'const '
                 when '<'
                   if cpos==0 and 列==1
                     词 = 'export '
                     if 行[1]?[1] == '='
                       行[1][1] = 'default '
-                    else if 行[2]?[1] != '='
-                      词 += 'default '
+                      变量名 = 行[2]?[1]
+                      if 变量名
+                        if 变量层.upsert 变量名
+                          行[1][1] += 'const '
+                    else
+                      if 行[2]?[1] != '='
+                        词 += 'default '
+                      else
+                        变量名 = 行[1][1]
+                        if 变量层.upsert 变量名
+                          词 += 'const '
+
 
                   else
                     词 = 'return '
