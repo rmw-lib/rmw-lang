@@ -51,6 +51,12 @@ import chalk from 'chalk'
             switch 词
               when '('
                 态 = 词
+              when '->'
+                态 = 词
+                词 = 'function'
+                if cpos==0
+                  词 += '()'
+                词 += '{'
               when '=>'
                 态 = 词
                 if cpos==0
