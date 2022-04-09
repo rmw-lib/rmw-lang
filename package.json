@@ -24,12 +24,12 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.8",
-    "@babel/plugin-transform-modules-commonjs": "^7.17.7",
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "@rmw/coffee-loader": "^0.0.4",
     "@rmw/console": "^0.0.20",
     "@rmw/md-include": "^0.4.8",
-    "@rmw/nestedtext": "^0.0.2",
+    "@rmw/nestedtext": "^0.0.3",
     "chalk": "^5.0.1",
     "coffeescript": "^2.6.1",
     "js-yaml": "^4.1.0",
@@ -39,6 +39,6 @@
   "dependencies": {
     "@rmw/fsline": "^0.0.1",
     "@rmw/thisdir": "^0.0.2",
-    "@rmw/walk": "^0.0.6"
+    "@rmw/walk": "^0.0.7"
   }
 }

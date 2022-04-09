@@ -8,10 +8,12 @@ import thisdir from '@rmw/thisdir'
 import chalk from 'chalk'
 import 编译 from './编译.coffee'
 
-
 ROOT = dirname thisdir import.meta
 CODE = join(ROOT,'code')
 RMW = join CODE,'rmw'
+
+import {ntDecode} from '@rmw/nestedtext'
+console.log await ntDecode readFileSync(join(RMW,'mod.nt'),'utf8')
 
 if process.argv[1] == decodeURI (new URL(import.meta.url)).pathname
   for await 路径 from walkRel RMW
