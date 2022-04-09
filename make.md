@@ -498,8 +498,10 @@ dict3 = {
 
 ### mod.nt
 
+```nt
 lodash: https://deno.land/x/lodash@4.17.15-es/lodash.js
 walk: @rmw/walk
+```
 
 ## 模块重命名
 
