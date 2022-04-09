@@ -477,6 +477,13 @@ dict3 = {
   fs
     readFileSync
 
+## 模块重命名
+
+mod.yaml
+
+ramda : https://x.nest.land/ramda@0.27.0/source/index.js
+walk : @rmw/walk
+
 ## await import 异步导入模块
 
 fs =< > fs
