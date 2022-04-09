@@ -8,6 +8,7 @@ specifiers:
   '@rmw/console': ^0.0.20
   '@rmw/fsline': ^0.0.1
   '@rmw/md-include': ^0.4.8
+  '@rmw/nestedtext': ^0.0.2
   '@rmw/thisdir': ^0.0.2
   '@rmw/walk': ^0.0.6
   chalk: ^5.0.1
@@ -28,6 +29,7 @@ devDependencies:
   '@rmw/coffee-loader': 0.0.4
   '@rmw/console': 0.0.20
   '@rmw/md-include': 0.4.8
+  '@rmw/nestedtext': 0.0.2
   chalk: 5.0.1
   coffeescript: 2.6.1
   js-yaml: 4.1.0
@@ -338,6 +340,12 @@ packages:
       q: 1.5.1
     dev: true
 
+  /@rmw/nestedtext/0.0.2:
+    resolution: {integrity: sha512-iuQm4tzHwbVwcdUV9V8uxzJNf8Ok2KjBZvrk/f6MyjrUp3bA/BDevjz40wpRgWTfqqFJ+Mz8IjUlqg/9ZAy3zg==}
+    dependencies:
+      '@rmw/thisdir': 0.0.2
+    dev: true
+
   /@rmw/signale/1.4.6:
     resolution: {integrity: sha512-1vksiUNyK7NTvBfKYJb98XSGL1EXgnYrFFy32cYQqS+dsIdJfKN6xMq2TTwPMoCiz+5V7vEpYu8ciKE9jJDLpQ==}
     engines: {node: '>=6'}
@@ -358,7 +366,6 @@ packages:
 
   /@rmw/thisdir/0.0.2:
     resolution: {integrity: sha512-KYV1t5GseFwwM0Q4mIHasm6csy9eVImOD9YLU5y8Ya3jb1hm4ahroSJSJZqFUsUAFC7CNnpvkzE703NQBCKIUg==}
-    dev: false
 
   /@rmw/walk/0.0.6:
     resolution: {integrity: sha512-7dEhyAZ02WqynDHi7GbIZ4pmuzunEGxZEw21OKkE6cvl5xAwE9iB4x3j4Xis/pIJQeK8YmNqCMP7VIT8lAQJLQ==}

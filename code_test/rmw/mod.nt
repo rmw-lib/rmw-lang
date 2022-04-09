@@ -1,2 +1,2 @@
-ramda : https://x.nest.land/ramda@0.27.0/source/index.js
-walk : @rmw/walk
+ramda: https://x.nest.land/ramda@0.27.0/source/index.js
+walk: @rmw/walk
