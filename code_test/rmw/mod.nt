@@ -1,2 +1,2 @@
-ramda: https://x.nest.land/ramda@0.27.0/source/index.js
+lodash: https://deno.land/x/lodash@4.17.15-es/lodash.js
 walk: @rmw/walk

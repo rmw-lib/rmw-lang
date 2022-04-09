@@ -25,6 +25,77 @@ font:
 
 可以先作为javascript的方言 ， 类似 coffeescript
 
+## 单引号字符串
+
+'string'
+
+'string
+is
+string'
+
+## 正则
+
+/\d+/
+
+## 双引号字符串
+
+https://nestedtext.org/en/stable/
+
+```nt
+# Contact information for our officers
+
+president:
+    name: Katheryn McDaniel
+    address:
+        > 138 Almond Street
+        > Topeka, Kansas 20697
+    phone:
+        cell: 1-210-555-5297
+        home: 1-210-555-8470
+            # Katheryn prefers that we always call her on her cell phone.
+    email: KateMcD@aol.com
+    additional roles:
+        - board member
+
+vice president:
+    name: Margaret Hodge
+    address:
+        > 2586 Marigold Lane
+        > Topeka, Kansas 20682
+    phone: 1-470-555-0398
+    email: margaret.hodge@ku.edu
+    additional roles:
+        - new membership task force
+        - accounting task force
+```
+
+等价于
+
+```json5
+{
+  president: {
+    name: 'Katheryn McDaniel',
+    address: '138 Almond Street\nTopeka, Kansas 20697',
+    phone: { cell: '1-210-555-5297', home: '1-210-555-8470' },
+    email: 'KateMcD@aol.com',
+    'additional roles': [ 'board member' ]
+  },
+  'vice president': {
+    name: 'Margaret Hodge',
+    address: '2586 Marigold Lane\nTopeka, Kansas 20682',
+    phone: '1-470-555-0398',
+    email: 'margaret.hodge@ku.edu',
+    'additional roles': [ 'new membership task force', 'accounting task force' ]
+  }
+}
+```
+
+## 字符串模板
+
+template = 'index.html'
+
+`this is {template}`
+
 ## 当前文件路径
 
 .url
@@ -101,56 +172,6 @@ a || b
 |
 ^
 
-## 单引号字符串
-
-'string'
-
-'string
-is
-string'
-
-## 正则
-
-/\d+/
-
-## 双引号字符串
-
-  "
-    a
-      b
-    c
-  "
-
-等价于 'a\n b\nc'
-
-
-## 字符串数组
-
-yaml
-
-"
-  a
-
-    b
-  c
-"
-
-等价于 'a\nb\nc'
-"
-a
-  b
-c
-"[]
-
-等价于 'a\nb\nc'.split('\n')
-
-也就是 ['a','b','c']
-
-## 字符串模板
-
-template = 'index.html'
-
-`this is {template}`
 
 ## if else
 
@@ -476,6 +497,11 @@ dict3 = {
 >
   fs
     readFileSync
+
+### mod.nt
+
+lodash: https://deno.land/x/lodash@4.17.15-es/lodash.js
+walk: @rmw/walk
 
 ## 模块重命名
 
