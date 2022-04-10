@@ -5,4 +5,4 @@
     ntDecode
   walk thisdir
 
-ROOT = dirname thisdir import.meta
+console.log process.argv

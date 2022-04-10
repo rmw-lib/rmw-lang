@@ -37,9 +37,10 @@ export default (li, import_map)->
             模块 = 词
             新名 = 获取新名()
             if 新名
-              yield "import { default as #{新名} } from '#{词}'"
+              yield "import { default as #{新名} } from '#{import_map(词)}'"
               continue
-            if 行[0]?[0] <= 模块缩进
+
+            if (行[cpos]?[0] <= 模块缩进) or not 行[cpos]
               yield "import #{词} from '#{import_map(词)}'\n"
           else
             if cpos == 1

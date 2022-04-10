@@ -1,6 +1,10 @@
-XX = 'fs'
+import fs from 'fs'
 import {
   readFileSync
-} from XX
+} from 'fs'
+import {
+  ntDecode
+} from '@rmw/nestedtext'
+import thisdir from '@rmw/thisdir'
 
-console.log(readFileSync)
+console.log(process.argv)

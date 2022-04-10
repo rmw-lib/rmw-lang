@@ -31,7 +31,7 @@ import 导入 from './导入'
       ended = ->
         if 态 == 变量声明
           if len == pos
-            yield ';'
+            yield ''
           else if not (pos==0 and 行.length==1)
             yield ','
 
