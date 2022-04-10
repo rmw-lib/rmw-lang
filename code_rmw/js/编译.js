@@ -9,17 +9,21 @@ export const 导入=(源码,行,结果,模块依赖)=>{
   let 开始=行,
     块,
     导入内容,
-    前缩进,
+    块缩进,
+    行列,
     缩进,
     文
   const 源码行数=源码.length,
     出=()=>{
-      if(!块)return;
-      const 暂=[导入,行,缩进,块]
-      if(导入内容.length){
-        暂.push(导入内容)
+      if(块){
+        const
+          暂=[...行列,导入,块]
+        if(导入内容.length){
+          暂.push(导入内容)
+        }
+        结果.push(暂)
       }
-      结果.push(暂)
+      行列=[行,缩进]
     }
   while(源码行数>行){
     文=源码[行++]
@@ -34,18 +38,17 @@ export const 导入=(源码,行,结果,模块依赖)=>{
       行=注释(源码,行,结果)
       continue
     }
-    if(!前缩进||(前缩进>=缩进)){
+    if(!块缩进||(块缩进>=缩进)){
       出()
       导入内容=[]
       块=模块依赖(文.trimStart())
-      前缩进=缩进
+      块缩进=缩进
     }else{
       导入内容.push(文.trimStart())
     }
   }
   出()
-  --行
-  return 行
+  return --行
 }
 export default (源码,模块依赖)=>{
   源码=源码.replaceAll('\r\n','\n').replaceAll('\r','\n').split('\n')
