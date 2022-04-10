@@ -3,13 +3,16 @@ export const 行缩进=(文)=>{
 }
 export const 注释=(源码,行,结果)=>{}
 export const 导入=(源码,行,结果,模块依赖)=>{
-  const 源码行数=源码.length,
-    块=[]
   let 开始=行,
-    子模块,
+    块,
+    导入内容,
+    前缩进,
     缩进,
-    文,
-    前缩进
+    文
+  const 源码行数=源码.length,
+    出=()=>{
+      块&&结果.push(导入,块,导入内容)
+    }
   while(源码行数>行){
     文=源码[行++]
     缩进=行缩进(文)
@@ -24,16 +27,16 @@ export const 导入=(源码,行,结果,模块依赖)=>{
       continue
     }
     if(!前缩进||(前缩进>=缩进)){
-      子模块=[]
-      块.unshift([模块依赖(文.trimStart()),子模块])
+      出()
+      导入内容=[]
+      块=模块依赖(文.trimStart())
       前缩进=缩进
     }else{
-      子模块.push(文.trimStart())
+      导入内容.push(文.trimStart())
     }
   }
+  出()
   --行
-  结果.push(JSON.stringify(块.reverse()))
-  console.log(模块依赖,源码.slice(开始,行))
   return 行
 }
 export default (源码,模块依赖)=>{
