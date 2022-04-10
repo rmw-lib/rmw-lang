@@ -40,7 +40,8 @@ export default (li, import_map)->
               yield "import { default as #{新名} } from '#{import_map(词)}'"
               continue
 
-            if (行[cpos]?[0] <= 模块缩进) or not 行[cpos]
+            下一行 = li[pos+1]
+            if (下一行?[1]?[0] <= 模块缩进) or not 下一行
               yield "import #{词} from '#{import_map(词)}'\n"
           else
             if cpos == 1
@@ -56,7 +57,7 @@ export default (li, import_map)->
               continue
             yield 词
     if 缩进 > 模块缩进
-      yield " } from '#{模块}'"
+      yield " } from '#{import_map(模块)}'"
   if li.length
     yield '\n'
   return
