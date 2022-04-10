@@ -7,14 +7,20 @@
     walkRel
   thisdir
 
-  yargs/yargs
+  yargs
 
   yargs/helpers
     hideBin
+-
+  yargv = yargs(hideBin(process.argv)).command(
+    '[路径]'
+    '编译文件或文件夹'
+  )
+  argv = yargv.parse()
 
-yargs(hideBin(process.argv)).command(
-  '[dir]'
-  'compile file or dir'
-  (yargs)=>
-    console.log yargs
-)
+  root = argv._[0]
+if(root){
+  console.log(1)
+}else{
+  yargv.showHelp()
+}

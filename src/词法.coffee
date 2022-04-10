@@ -37,6 +37,8 @@ export 非代码态 = new Set 文态 + '#'
 
 export 非调用前缀 = new Set [
   '('
+  ':'
+  '?'
   '['
   '{'
   '..'

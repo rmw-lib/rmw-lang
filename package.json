@@ -1,7 +1,7 @@
 {
   "name": "@rmw/lang",
   "repository": "git@github.com:rmw-lib/rmw-lang.git",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "exports": {
     ".": {
       "require": "./lib/index.cjs",
