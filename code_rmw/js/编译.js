@@ -1,8 +1,11 @@
 export const 行缩进=(文)=>{
   return 文.length-文.trimStart().length
 }
-export const 注释=(源码,行,结果)=>{}
+export const 注释=(源码,行,结果)=>{
+  --行
+}
 export const 导入=(源码,行,结果,模块依赖)=>{
+  --行
   let 开始=行,
     块,
     导入内容,
@@ -12,7 +15,7 @@ export const 导入=(源码,行,结果,模块依赖)=>{
   const 源码行数=源码.length,
     出=()=>{
       if(!块)return;
-      const 暂=[导入,块]
+      const 暂=[导入,行,缩进,块]
       if(导入内容.length){
         暂.push(导入内容)
       }
@@ -59,7 +62,7 @@ export default (源码,模块依赖)=>{
     列=缩进
     if(缩进==0&&文[列]=='>'){
       源码[行-1]=' '+文.slice(1)
-      行=导入(源码,行-1,结果,模块依赖)
+      行=导入(源码,行,结果,模块依赖)
       continue
     }
   }
