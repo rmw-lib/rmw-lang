@@ -36,6 +36,7 @@
     "js-yaml": "^4.1.0",
     "json5": "^2.2.1",
     "lodash-es": "^4.17.21",
+    "source-map-js": "^1.0.2",
     "yargs": "^17.4.1"
   },
   "dependencies": {

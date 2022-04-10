@@ -17,6 +17,7 @@ specifiers:
   js-yaml: ^4.1.0
   json5: ^2.2.1
   lodash-es: ^4.17.21
+  source-map-js: ^1.0.2
   yargs: ^17.4.1
 
 dependencies:
@@ -38,6 +39,7 @@ devDependencies:
   js-yaml: 4.1.0
   json5: 2.2.1
   lodash-es: 4.17.21
+  source-map-js: 1.0.2
   yargs: 17.4.1
 
 packages:
@@ -982,6 +984,11 @@ packages:
   /slash/2.0.0:
     resolution: {integrity: sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==}
     engines: {node: '>=6'}
+    dev: true
+
+  /source-map-js/1.0.2:
+    resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
+    engines: {node: '>=0.10.0'}
     dev: true
 
   /source-map/0.5.7:
