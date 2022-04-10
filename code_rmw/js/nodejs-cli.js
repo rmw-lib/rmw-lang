@@ -29,7 +29,7 @@ const yargv=yargs(hideBin(process.argv)).command(
   argv=yargv.parse(),
   root=argv._[0],
   compile=(path)=>{
-    console.log(path)
+    编译(readFileSync(path,'utf8'))
   }
 if(root){
   if(argv.watch){

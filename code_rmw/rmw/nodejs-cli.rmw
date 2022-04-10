@@ -36,7 +36,7 @@
   root = argv._[0]
 
   compile = (path)=>
-    console.log path
+    编译 readFileSync path,'utf8'
 
 if(root){
   if(argv.watch){
