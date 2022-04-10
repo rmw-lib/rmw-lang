@@ -44,7 +44,7 @@ if(root){
       mod_nt=await(ntDecode(readFileSync(join(root,'mod.nt'),utf8)))
     const
       模块依赖=(mod)=>{
-        mod_nt(mod)(or(mod))
+        return mod_nt[mod]||mod
       }
     watcher.on(
       'add',

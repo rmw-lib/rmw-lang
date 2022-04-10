@@ -6,6 +6,7 @@ export const 导入=(源码,行,结果,模块依赖)=>{
   const 源码行数=源码.length,
     块=[]
   let 开始=行,
+    子模块,
     缩进,
     文,
     前缩进
@@ -15,15 +16,23 @@ export const 导入=(源码,行,结果,模块依赖)=>{
     if(缩进==文.length){
       continue
     }
+    if(缩进==0){
+      break
+    }
     if(文[缩进]=='#'){
       行=注释(源码,行,结果)
       continue
     }
-    if(缩进==0){
-      break
+    if(!前缩进||(前缩进>=缩进)){
+      子模块=[]
+      块.unshift([模块依赖(文.trimStart()),子模块])
+      前缩进=缩进
+    }else{
+      子模块.push(文.trimStart())
     }
   }
   --行
+  结果.push(JSON.stringify(块.reverse()))
   console.log(模块依赖,源码.slice(开始,行))
   return 行
 }
