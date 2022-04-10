@@ -12,4 +12,9 @@
   yargs/helpers
     hideBin
 
-console.log process.argv
+yargs(hideBin(process.argv)).command(
+  '[dir]'
+  'compile file or dir'
+  (yargs)=>
+    console.log yargs
+)

@@ -40,9 +40,9 @@ export default main = (行迭代)->
   根 = layer = new 层
   前缩进 = 1
   括号栈 = []
-  括号栈_push = =>
-    括号栈.push [0,0,0]
-  括号栈_push()
+  扩括号栈 = =>
+    括号栈.unshift [0,0,0]
+  扩括号栈()
   开头 = 结尾 = undefined
 
   缩进块 = []
@@ -104,7 +104,6 @@ export default main = (行迭代)->
               break
 
         寻根()
-
       try
         layer.line [行号]
       catch err
@@ -149,7 +148,7 @@ export default main = (行迭代)->
         结尾 = 词
 
       if ~ ['->','=>'].indexOf(词)
-        括号栈_push()
+        扩括号栈()
         layer = layer.sub(行号)
         push()
         ++函数个数

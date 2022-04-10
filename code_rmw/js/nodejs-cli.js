@@ -6,4 +6,10 @@ import thisdir from '@rmw/thisdir'
 import yargs from 'yargs/yargs'
 
 import { hideBin } from 'yargs/helpers'
-console.log(process.argv)
+yargs(hideBin(process.argv)).command(
+  '[dir]',
+  'compile file or dir',
+  (yargs)=>{
+    console.log(yargs)
+  }
+)
