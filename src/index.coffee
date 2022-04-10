@@ -13,7 +13,7 @@ CODE = join(ROOT,'code')
 RMW = join CODE,'rmw'
 
 import {ntDecode} from '@rmw/nestedtext'
-console.log await ntDecode readFileSync(join(RMW,'mod.nt'),'utf8')
+#console.log await ntDecode readFileSync(join(RMW,'mod.nt'),'utf8')
 
 if process.argv[1] == decodeURI (new URL(import.meta.url)).pathname
   for await 路径 from walkRel RMW
