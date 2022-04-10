@@ -6,7 +6,7 @@
   walk
     walkRel
   thisdir
-
+  chokidar
   yargs
 
   yargs/helpers
@@ -15,12 +15,42 @@
   yargv = yargs(hideBin(process.argv)).command(
     '[路径]'
     '编译文件或文件夹'
+  ).option(
+    'watch',
+    {
+      alias: 'w',
+      describe: '监控改动并实时编译'
+    }
+  ).option(
+    'outdir',
+    {
+      alias: 'o',
+      describe: '文件输出目录'
+    }
   )
-  argv = yargv.parse()
 
+  argv = yargv.parse()
   root = argv._[0]
+
+  compile = (path)=>
+    console.log path
+
 if(root){
-  console.log(1)
+  if(argv.watch){
+    const
+      watcher = chokidar.watch(root)
+    watcher.on(
+      'add'
+      (path)=>
+        - pos = path.lastIndexOf '.'
+        if(~pos){
+          if(path.slice(pos+1) == 'rmw'){
+            compile(path)
+          }
+        }
+    )
+
+  }
 }else{
   yargv.showHelp()
 }
