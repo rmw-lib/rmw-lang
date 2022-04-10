@@ -34,7 +34,8 @@
     "coffeescript": "^2.6.1",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.1",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "yargs": "^17.4.1"
   },
   "dependencies": {
     "@rmw/fsline": "^0.0.1",

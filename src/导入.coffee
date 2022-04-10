@@ -42,7 +42,7 @@ export default (li, import_map)->
 
             下一行 = li[pos+1]
             if (下一行?[1]?[0] <= 模块缩进) or not 下一行
-              yield "import #{词} from '#{import_map(词)}'\n"
+              yield "import #{词.split('/').pop()} from '#{import_map(词)}'\n"
           else
             if cpos == 1
               yield 'import { '

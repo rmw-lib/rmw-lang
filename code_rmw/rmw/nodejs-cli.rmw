@@ -3,6 +3,13 @@
     readFileSync
   nestedtext
     ntDecode
-  walk thisdir
+  walk
+    walkRel
+  thisdir
+
+  yargs/yargs
+
+  yargs/helpers
+    hideBin
 
 console.log process.argv

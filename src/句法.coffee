@@ -59,7 +59,20 @@ export default main = (行迭代)->
         layer = 根
         前缩进 = 1
       else
-        layer.line line.filter 非空格
+        li = [line[0]]
+        t = undefined
+        for i from line[1..]
+          if t == undefined
+            t = i
+          else
+            if i[1]==' '
+              li.push t
+              t = undefined
+            else
+              t[1]+=i[1]
+        if t
+          li.push t
+        layer.line li
         continue
 
     寻根 = =>
