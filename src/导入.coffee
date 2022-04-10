@@ -3,7 +3,7 @@
 import 转注释 from './转注释'
 import {$log} from './rmw-lang'
 
-export default (li)->
+export default (li, import_map)->
   模块缩进 = 模块 = undefined
 
   for [行号,...行],pos in li
@@ -39,8 +39,8 @@ export default (li)->
             if 新名
               yield "import { default as #{新名} } from '#{词}'"
               continue
-            if 行[cpos]?[0] <= 模块缩进
-              yield "import #{词} from '#{词}'"
+            if 行[0]?[0] <= 模块缩进
+              yield "import #{词} from '#{import_map(词)}'\n"
           else
             if cpos == 1
               yield 'import { '

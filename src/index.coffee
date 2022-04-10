@@ -13,13 +13,19 @@ CODE = join(ROOT,'code')
 RMW = join CODE,'rmw'
 
 import {ntDecode} from '@rmw/nestedtext'
-#console.log await ntDecode readFileSync(join(RMW,'mod.nt'),'utf8')
+import_map = await do =>
+  map = await ntDecode readFileSync(join(RMW,'mod.nt'),'utf8')
+  (mod)=>
+    map[mod] or mod
 
 if process.argv[1] == decodeURI (new URL(import.meta.url)).pathname
   for await 路径 from walkRel RMW
     if not 路径.endsWith '.rmw'
       continue
     console.log chalk.yellow('\n→'+路径)
-    for await i from 编译 fsline join(RMW,路径)
+    for await i from 编译(
+      fsline join(RMW,路径)
+      import_map
+    )
       process.stdout.write i
   process.exit()

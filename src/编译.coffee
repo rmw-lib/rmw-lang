@@ -9,7 +9,7 @@ import 导入 from './导入'
 
 变量声明 = Symbol('变量声明')
 
-编译 = (层)->
+编译 = (层,import_map)->
   变量层 = new _变量层()
   前行 = 0
   行缩进 = {}
@@ -43,7 +43,7 @@ import 导入 from './导入'
           switch 词
             when '>'
               if cpos==0 and 列==1
-                yield from 导入(层.li)
+                yield from 导入(层.li, import_map)
                 return
 
           if not (行号 of 行缩进)
@@ -157,7 +157,8 @@ import 导入 from './导入'
 
   return run(层)
 
-export default (行迭代)->
+export default (行迭代, import_map)->
   yield from 编译(
     await 句法 行迭代
+    import_map
   )

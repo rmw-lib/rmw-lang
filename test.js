@@ -1,5 +1,6 @@
+XX = 'fs'
 import {
   readFileSync
-} from 'fs'
+} from XX
 
 console.log(readFileSync)

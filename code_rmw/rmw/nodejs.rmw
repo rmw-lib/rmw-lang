@@ -3,7 +3,6 @@
     readFileSync
   nestedtext
     ntDecode
-  walk
-  thisdir
+  walk thisdir
 
 ROOT = dirname thisdir import.meta
