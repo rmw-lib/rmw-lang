@@ -1,3 +1,4 @@
+import { join } from 'path'
 import { readFileSync } from 'fs'
 import { ntDecode } from '@rmw/nestedtext'
 import { walkRel } from '@rmw/walk'
@@ -28,20 +29,30 @@ const yargv=yargs(hideBin(process.argv)).command(
   ),
   argv=yargv.parse(),
   root=argv._[0],
-  compile=(path)=>{
-    编译(readFileSync(path,'utf8'))
+  utf8='utf8',
+  compile=(path,模块依赖)=>{
+    编译(
+      readFileSync(path,utf8),
+      模块依赖
+    )
   }
 if(root){
   if(argv.watch){
     const
       watcher=chokidar.watch(root)
+    const
+      mod_nt=await(ntDecode(readFileSync(join(root,'mod.nt'),utf8)))
+    const
+      模块依赖=(mod)=>{
+        mod_nt(mod)(or(mod))
+      }
     watcher.on(
       'add',
       (path)=>{
         const pos=path.lastIndexOf('.')
         if(~pos){
           if(path.slice(pos+1)=='rmw'){
-            compile(path)
+            compile(path,模块依赖)
           }
         }
       }
