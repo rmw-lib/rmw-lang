@@ -1,0 +1,9 @@
+>
+  fs
+    readFileSync
+  nestedtext
+    ntDecode
+  walk
+  thisdir
+
+ROOT = dirname thisdir import.meta
