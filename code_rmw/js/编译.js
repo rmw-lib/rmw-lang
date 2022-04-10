@@ -1,5 +1,8 @@
 import sourcemap from 'source-map-js'
 
+let 态={
+    导入:1
+  }
 export const 行缩进=(文)=>{
   return 文.length-文.trimStart().length
 }
@@ -19,7 +22,7 @@ export const 导入=(源码,行,结果,模块依赖)=>{
     出=()=>{
       if(块){
         const
-          暂=[...行列,导入,块]
+          暂=[...行列,态.导入,块]
         if(导入内容.length){
           暂.push(导入内容)
         }
