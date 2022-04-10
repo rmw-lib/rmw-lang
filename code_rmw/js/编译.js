@@ -11,7 +11,12 @@ export const 导入=(源码,行,结果,模块依赖)=>{
     文
   const 源码行数=源码.length,
     出=()=>{
-      块&&结果.push(导入,块,导入内容)
+      if(!块)return;
+      const 暂=[导入,块]
+      if(导入内容.length){
+        暂.push(导入内容)
+      }
+      结果.push(暂)
     }
   while(源码行数>行){
     文=源码[行++]
