@@ -11,6 +11,9 @@
 
   yargs/helpers
     hideBin
+
+  ./编译
+
 -
   yargv = yargs(hideBin(process.argv)).command(
     '[路径]'

@@ -1,0 +1,2 @@
+< (txt)=>
+  console.log txt

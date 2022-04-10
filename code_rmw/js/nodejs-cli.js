@@ -8,6 +8,8 @@ import chokidar from 'chokidar'
 import yargs from 'yargs'
 
 import { hideBin } from 'yargs/helpers'
+import 编译 from './编译'
+
 const yargv=yargs(hideBin(process.argv)).command(
     '[路径]',
     '编译文件或文件夹'
@@ -30,7 +32,6 @@ const yargv=yargs(hideBin(process.argv)).command(
     console.log(path)
   }
 if(root){
-  console.log(argv)
   if(argv.watch){
     const
       watcher=chokidar.watch(root)
