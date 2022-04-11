@@ -1,4 +1,5 @@
 walk: @rmw/walk
 thisdir: @rmw/thisdir
 nestedtext: @rmw/nestedtext
-sourcemap : source-map-js
+sourcemap: source-map-js
+lodash: lodash-es

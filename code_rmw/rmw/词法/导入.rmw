@@ -5,9 +5,32 @@
   ./小函数
     行缩进
 
-< 多行注释 = (源码,行,结果)=>
-  -- 行
+  lodash
+    map
 
+# < 多行注释 = (源码,行,结果)=>
+#  -- 行
+
+< 空格切 = (文)=>
+  -
+    li = []
+    t=[]
+  const
+    push = ()=>
+      if(t.length){
+        li.push t.join ''
+      }
+
+  map 文,(c)=>
+    if(c!=' '){
+      t.push c
+    }else{
+      push()
+    }
+
+  push()
+
+  < li
 
 
 < (源码,行,结果)=>
@@ -48,10 +71,10 @@
       break
     }
 
-    if(文[缩进] == '#'){
-      行 = 注释 源码,行,结果
-      continue
-    }
+#if(文[缩进] == '#'){
+#      行 = 注释 源码,行,结果
+#      continue
+#    }
 
     if(!块缩进||(块缩进>=缩进)){
       出()
@@ -59,7 +82,7 @@
       块 = 文.trimStart()
       块缩进 = 缩进
     }else{
-      导入内容.push 文.trimStart()
+      导入内容 = 导入内容.concat 空格切 文.trimStart()
     }
   }
   出()
