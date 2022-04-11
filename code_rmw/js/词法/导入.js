@@ -16,18 +16,21 @@ export const 空格切=(返,文)=>{
       }
       t=[]
     }
-  map(文,(c,pos)=>{
-    if(c==' '){
+  let c=0,
+    len=文.length,
+    字
+  while(len>c){
+    字=文[c++]
+    if(字==' '){
       push()
     }else{
-      if(c=='#'){
-         // TODO
-
+      if(字=='#'){
+        break
       }else{
-        t.push(c)
+        t.push(字)
       }
     }
-  })
+  }
   push()
   return li
 }
@@ -50,6 +53,7 @@ export default (返,源码,行,列)=>{
         块.map((i)=>{
           返(...行列,态.导入,i)
         })
+        块=终
         返(...行列,态.导入,终,...导入内容)
       }
       行列=[行,缩进]
@@ -64,17 +68,13 @@ export default (返,源码,行,列)=>{
     if(缩进==文.length){
       continue
     }
+    if(文[缩进]=='#'){
+      返(行++,缩进,态.单行注释,文.slice(缩进))
+      continue
+    }
     if(缩进==0){
       break
     }
- //if(文[缩进] == '#'){
-
- //      行 = 注释 源码,行,返
-
- //      continue
-
- //    }
-
     if(!块缩进||(块缩进>=缩进)){
       出()
       导入内容=[]
