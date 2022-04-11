@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { readFileSync } from 'fs'
+import { readFileSync,writeFileSync } from 'fs'
 import { ntDecode } from '@rmw/nestedtext'
 import { walkRel } from '@rmw/walk'
 import thisdir from '@rmw/thisdir'
@@ -30,10 +30,14 @@ const yargv=yargs(hideBin(process.argv)).command(
   argv=yargv.parse(),
   root=argv._[0],
   utf8='utf8',
-  compile=(path,模块依赖)=>{
-    编译(
-      readFileSync(path,utf8),
-      模块依赖
+  compile=(root,path,outdir,模块依赖)=>{
+    console.log('→',path)
+    writeFileSync(
+      join(outdir,path.slice(0,-4)+'.js'),
+      编译(
+        readFileSync(join(root,path),utf8),
+        模块依赖
+      )
     )
   }
 if(root){
@@ -47,11 +51,14 @@ if(root){
         return mod_nt[mod]||mod
       }
     const
+      outdir=argv.outdir||root
+    const
       文件改动=(path)=>{
+        path=path.slice(root.length+1)
         const pos=path.lastIndexOf('.')
         if(~pos){
           if(path.slice(pos+1)=='rmw'){
-            compile(path,模块依赖)
+            compile(root,path,outdir,模块依赖)
           }
         }
       }
