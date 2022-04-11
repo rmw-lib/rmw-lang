@@ -24,11 +24,12 @@
   map 文,(c,pos)=>
     if(c==' '){
       push()
-    }
-    if(c=='#'){
-      # TODO
-    }else{
-      t.push c
+    } else{
+      if(c=='#'){
+        # TODO
+      }else{
+        t.push c
+      }
     }
 
   push()

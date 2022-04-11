@@ -24,6 +24,7 @@ export const 编译=[]
     ).filter((x)=>{
       return x
     })
+    console.log(导入)
     if(导入.length){
       r.push(`import { ${ 导入.join(',') } } from ${模块路径}`)
     }
