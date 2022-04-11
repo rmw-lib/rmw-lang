@@ -19,14 +19,14 @@ export const 空格切=(返,文)=>{
   map(文,(c,pos)=>{
     if(c==' '){
       push()
-    }(else{
+    }else{
       if(c=='#'){
          // TODO
 
       }else{
         t.push(c)
       }
-    })
+    }
   })
   push()
   return li

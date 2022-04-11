@@ -24,7 +24,7 @@
   map 文,(c,pos)=>
     if(c==' '){
       push()
-    } else{
+    }else{
       if(c=='#'){
         # TODO
       }else{

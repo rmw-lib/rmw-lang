@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync,writeFileSync } from 'fs'
 import { ntDecode } from '@rmw/nestedtext'
 import { walkRel } from '@rmw/walk'
 import thisdir from '@rmw/thisdir'
