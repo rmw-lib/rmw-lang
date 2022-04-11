@@ -1,8 +1,10 @@
+import * as 态 from '../态'
+
 import { 行缩进 } from './小函数'
 export const 注释=(源码,行,结果)=>{
   --行
 }
-export const 导入=(源码,行,结果)=>{
+export default (源码,行,结果)=>{
   --行
   let 开始=行,
     块,
