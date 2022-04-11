@@ -6,7 +6,7 @@ import { map } from 'lodash-es'
 
  //  -- 行
 
-export const 空格切=(文,果)=>{
+export const 空格切=(果,文)=>{
   const li=[]
   let t=[]
   const
@@ -30,9 +30,9 @@ export const 空格切=(文,果)=>{
   push()
   return li
 }
-export default (源码,行,果)=>{
-  if(源码[行][0]!='>')
-    return 行
+export default (果,源码,行,列)=>{
+  if(列!=0||(源码[行][0]!='>'))
+    return 
   let 开始=行,
     块,
     导入内容,
