@@ -2,11 +2,11 @@ import * as 态 from '../态'
 
 import { 行缩进 } from './小函数'
 import { map } from 'lodash-es'
- // < 多行注释 = (源码,行,果)=>
+ // < 多行注释 = (源码,行,返)=>
 
- //  -- 行
+ //  < 行
 
-export const 空格切=(果,文)=>{
+export const 空格切=(返,文)=>{
   const li=[]
   let t=[]
   const
@@ -30,7 +30,7 @@ export const 空格切=(果,文)=>{
   push()
   return li
 }
-export default (果,源码,行,列)=>{
+export default (返,源码,行,列)=>{
   if(列!=0||(源码[行][0]!='>'))
     return 
   let 开始=行,
@@ -43,13 +43,13 @@ export default (果,源码,行,列)=>{
   const 源码行数=源码.length,
     出=()=>{
       if(块){
-        块=空格切(块)
+        块=空格切(返,块)
         const
           终=块.pop()
         块.map((i)=>{
-          果.push([...行列,态.导入,i])
+          返([...行列,态.导入,i])
         })
-        果.push([...行列,态.导入,终,...导入内容])
+        返([...行列,态.导入,终,...导入内容])
       }
       行列=[行,缩进]
     }
@@ -68,7 +68,7 @@ export default (果,源码,行,列)=>{
     }
  //if(文[缩进] == '#'){
 
- //      行 = 注释 源码,行,果
+ //      行 = 注释 源码,行,返
 
  //      continue
 
@@ -80,9 +80,9 @@ export default (果,源码,行,列)=>{
       块=文.trimStart()
       块缩进=缩进
     }else{
-      导入内容=导入内容.concat(空格切(文.trimStart(),果))
+      导入内容=导入内容.concat(空格切(返,文.trimStart()))
     }
   }
   出()
-  return --行
+  return 行
 }
