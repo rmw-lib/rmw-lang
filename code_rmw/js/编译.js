@@ -25,7 +25,7 @@ export const 编译=[]
       return x
     })
     if(导入.length){
-      r.push(`import { ${ 导入.join(',') } } from ${模块路径}`)
+      r.push(`import {${ 导入.join(',') }} from ${模块路径}`)
     }
     r=r.join('\n')+'\n'
   }else{
