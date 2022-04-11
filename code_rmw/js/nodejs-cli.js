@@ -46,9 +46,8 @@ if(root){
       模块依赖=(mod)=>{
         return mod_nt[mod]||mod
       }
-    watcher.on(
-      'add',
-      (path)=>{
+    const
+      文件改动=(path)=>{
         const pos=path.lastIndexOf('.')
         if(~pos){
           if(path.slice(pos+1)=='rmw'){
@@ -56,7 +55,8 @@ if(root){
           }
         }
       }
-    )
+    watcher.on('add',文件改动)
+    watcher.on('change',文件改动)
   }
 }else{
   yargv.showHelp()
