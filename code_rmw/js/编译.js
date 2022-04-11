@@ -35,7 +35,7 @@ export const 编译=[]
 })
 编译.push((模块依赖,文)=>{ // 单行注释
 
-  return '//'+文
+  return '//'+文+'\n'
 })
 export default (源码,模块依赖)=>{
   const 果=词法(源码)
