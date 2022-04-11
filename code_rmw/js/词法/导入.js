@@ -25,6 +25,8 @@ export const 空格切=(返,文)=>{
       push()
     }else{
       if(字=='#'){
+ // TODO 注释
+
         break
       }else{
         t.push(字)
@@ -69,6 +71,8 @@ export default (返,源码,行,列)=>{
       continue
     }
     if(文[缩进]=='#'){
+ // TODO 多行注释
+
       返(行,缩进,态.单行注释,文.slice(缩进+1))
       continue
     }
