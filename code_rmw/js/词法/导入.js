@@ -6,7 +6,7 @@ import { map } from 'lodash-es'
 
  //  -- 行
 
-export const 空格切=(文)=>{
+export const 空格切=(文,果)=>{
   const li=[]
   let t=[]
   const
@@ -16,11 +16,15 @@ export const 空格切=(文)=>{
       }
       t=[]
     }
-  map(文,(c)=>{
-    if(c!=' '){
-      t.push(c)
-    }else{
+  map(文,(c,pos)=>{
+    if(c==' '){
       push()
+    }
+    if(c=='#'){
+       // TODO
+
+    }else{
+      t.push(c)
     }
   })
   push()
@@ -39,7 +43,11 @@ export default (源码,行,果)=>{
   const 源码行数=源码.length,
     出=()=>{
       if(块){
-        果.push([...行列,态.导入,块,...导入内容])
+        块=空格切(块)
+        const
+          终=块.pop()
+        块.map((i)=>{果.push}([...行列,态.导入,i]))
+        果.push([...行列,态.导入,终,...导入内容])
       }
       行列=[行,缩进]
     }
@@ -70,7 +78,7 @@ export default (源码,行,果)=>{
       块=文.trimStart()
       块缩进=缩进
     }else{
-      导入内容=导入内容.concat(空格切(文.trimStart()))
+      导入内容=导入内容.concat(空格切(文.trimStart(),果))
     }
   }
   出()
