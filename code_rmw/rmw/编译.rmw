@@ -3,13 +3,44 @@
     *:态
   ./词法
 
+< 编译 = []
+
+
+编译.push (模块依赖,模块,...导入)=> # 导入
+  - 模块路径 = `'${模块依赖(模块)}'`
+  = r
+  if(导入.length){
+    r = []
+    导入 = 导入.map( (x)=>
+        = c = x[0]
+        if(c=='.'){
+          x='default'+x.slice(1)
+        }
+        x = x.replace(':',' as ')
+        if(c=='*'){
+          r.push `import ${x} from ${模块路径}`
+          x = 0
+        }
+        < x
+    ).filter (x)=>
+      < x
+
+    if(导入.length){
+      r.push `import { ${ 导入.join(',') } } from ${模块路径}`
+    }
+    r = r.join('\n')+'\n'
+  }else{
+    r = `import ${模块.slice(模块.lastIndexOf("/")+1)} from ${模块路径}\n`
+  }
+  < r
+
 < (源码,模块依赖)=>
   -
     果 = 词法 源码
+  const
+  js = 果.map( ([行,列,state,...文])=>
+    < 编译[state] 模块依赖,...文
+  ).join('')
 
-  果.map ([行,列,state,...li])=>
-    if(态.导入==state){
-      console.log li
-    }
-
-  < ''
+  console.log js
+  < js
