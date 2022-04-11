@@ -5,9 +5,9 @@
 
 < (源码,模块依赖)=>
   -
-    结果 = 词法 源码
+    果 = 词法 源码
 
-  结果.map ([行,列,state,...li])=>
+  果.map ([行,列,state,...li])=>
     if(态.导入==state){
       console.log li
     }

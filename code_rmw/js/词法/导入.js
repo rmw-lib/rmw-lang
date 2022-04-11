@@ -2,18 +2,19 @@ import * as 态 from '../态'
 
 import { 行缩进 } from './小函数'
 import { map } from 'lodash-es'
- // < 多行注释 = (源码,行,结果)=>
+ // < 多行注释 = (源码,行,果)=>
 
  //  -- 行
 
 export const 空格切=(文)=>{
-  const li=[],
-    t=[]
+  const li=[]
+  let t=[]
   const
     push=()=>{
       if(t.length){
         li.push(t.join(''))
       }
+      t=[]
     }
   map(文,(c)=>{
     if(c!=' '){
@@ -25,7 +26,7 @@ export const 空格切=(文)=>{
   push()
   return li
 }
-export default (源码,行,结果)=>{
+export default (源码,行,果)=>{
   if(源码[行][0]!='>')
     return 行
   let 开始=行,
@@ -38,7 +39,7 @@ export default (源码,行,结果)=>{
   const 源码行数=源码.length,
     出=()=>{
       if(块){
-        结果.push([...行列,态.导入,块,...导入内容])
+        果.push([...行列,态.导入,块,...导入内容])
       }
       行列=[行,缩进]
     }
@@ -57,7 +58,7 @@ export default (源码,行,结果)=>{
     }
  //if(文[缩进] == '#'){
 
- //      行 = 注释 源码,行,结果
+ //      行 = 注释 源码,行,果
 
  //      continue
 
