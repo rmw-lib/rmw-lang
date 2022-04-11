@@ -44,6 +44,10 @@ export default (li, import_map)->
             if (下一行?[1]?[0] <= 模块缩进) or not 下一行
               yield "import #{词.split('/').pop()} from '#{import_map(词)}'\n"
           else
+            if 词.startsWith '*'
+              yield 'import '+词.replace(':',' as ')+' from \''+import_map(模块)+'\'\n'
+              缩进 = 0
+              continue
             if cpos == 1
               yield 'import { '
             else
@@ -55,7 +59,7 @@ export default (li, import_map)->
             if 新名
               yield 词+" as "+新名
               continue
-            yield 词
+            yield 词.replace(':',' as ')
     if 缩进 > 模块缩进
       yield " } from '#{import_map(模块)}'"
   if li.length

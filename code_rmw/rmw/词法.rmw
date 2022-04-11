@@ -1,5 +1,6 @@
 >
   ./态
+    *:态
 
 < 行缩进 = (文)=>
   < 文.length - 文.trimStart().length
